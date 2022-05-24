@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+ // const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({required this.title});
   // This widget is the home page of your application. It is stateful, meaning
   final String title;
 
