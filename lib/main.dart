@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-   // This widget is the home page of your application. It is stateful, meaning
+  // This widget is the home page of your application. It is stateful, meaning
   final String title;
 
   @override
@@ -36,22 +36,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    routes : <String, WidgetBuilder> {
-      "/login" : (BuildContext bc) => LoginPage(),
-    };
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-          Navigator.pushNamed(context, "/login");
-          },
-          child: Text('Login'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Login'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+            RaisedButton(
+                child: Text('sing up'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                })
+          ],
         ),
       ),
     );
