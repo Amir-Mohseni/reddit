@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
             DrawerHeader(
               child: Text('Profile'),
               decoration: BoxDecoration(
-                color: Colors.,
+                color: Colors.blueAccent,
               ),
             ),
             ListTile(
