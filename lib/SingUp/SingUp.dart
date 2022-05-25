@@ -1,20 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Classes/User.dart';
+
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  Function addUser;
+
+  SignUpPage({Key? key, required this.addUser}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpPage> createState() => _SignUpPageState(addUser);
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  Function addUser;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
-  TextEditingController cpasc= TextEditingController();
+  TextEditingController cpasc = TextEditingController();
   DateTime daytime = DateTime.now();
-  String userError = "", desError = "",cpassError="";
+  String userError = "", desError = "", cpassError = "";
+  RegExp regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
   bool _isLoading = false;
+
+  _SignUpPageState(this.addUser);
 
   @override
   void dispose() {
@@ -51,10 +59,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         errorText: userError,
                         hintText: "Username",
                         contentPadding:
-                        const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                            const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                         border: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(8.0)))),
+                                BorderRadius.all(Radius.circular(8.0)))),
                   ),
                 ),
                 Container(
@@ -68,10 +76,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         hintText: "Password",
                         errorText: desError,
                         contentPadding:
-                        const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                            const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                         border: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(8.0)))),
+                                BorderRadius.all(Radius.circular(8.0)))),
                   ),
                 ),
                 Container(
@@ -84,10 +92,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         hintText: "Confirm Password",
                         errorText: cpassError,
                         contentPadding:
-                        const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                            const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                         border: const OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(8.0)))),
+                                BorderRadius.all(Radius.circular(8.0)))),
                   ),
                 ),
                 Container(
@@ -99,14 +107,23 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () {
                       FocusScope.of(context).requestFocus(FocusNode());
                       setState(() {
-                        if (namec.text.length < 3) {
-                          userError = "username must be > 4";
-                        } else if (pasc.text.length < 4) {
+                        if (namec.text.length < 8) {
+                          // print(namec.text);
+                          // print(regExp.hasMatch(pasc.text));
+                          userError =
+                              "username must be at list 8 characters long";
+                          desError = "";
+                        } else if (!regExp.hasMatch(pasc.text)) {
                           userError = "";
-                          desError = "password must be > 4";
-                        } else {
+                          desError =
+                              "password must be at list 8 characters long containing one uppercase letter one lowercase letter and one number";
+                        } else if (pasc.text != cpasc.text) {
                           userError = "";
                           desError = "";
+                          cpassError = "password does not match";
+                        } else {
+                          addUser(
+                              User(username: namec.text, password: pasc.text));
                           Future.delayed(Duration(milliseconds: 500), () {
                             Navigator.pop(context);
                           });
@@ -114,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       });
                     },
                     child: const Text(
-                      "Login",
+                      "Sign In",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -127,5 +144,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-
