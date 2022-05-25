@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
+import 'assets/colors/ColorSleect.dart';
+import 'eg. Colors.dar.dart';
 
 class ProfilePage extends StatefulWidget {
   User user;
@@ -20,28 +22,30 @@ class _ProfilePageState extends State<ProfilePage> {
     String? titl;
     return Scaffold(
       drawer: Drawer(
+        backgroundColor: blackorange  ,
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('Profile'),
+              curve: Curves.easeIn,
+              child: Text('Profile', style: TextStyle(color: orangepurpule),),
               decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                color: purpulorange ,
               ),
             ),
             ListTile(
-              title: Text('Home'),
+              title: Text('Home',style: TextStyle(color: orangepurpule)),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Profile'),
+              title: Text('Profile',style: TextStyle(color: orangepurpule)),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Logout'),
+              title: Text('Logout',style: TextStyle(color: orangepurpule)),
               onTap: () {
                 Navigator.pop(context);
               },
