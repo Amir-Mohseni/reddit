@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -30,11 +31,11 @@ class MyHomeState extends State<MyHome> {
                       Expanded(
                         flex: 1,
                         child: TextField(
-                          style: TextStyle(backgroundColor: Colors.grey),
                           decoration: InputDecoration(
                             hintText: 'Search',
+                            hintStyle: TextStyle(color: Colors.black),
                             border: InputBorder.none,
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: Icon(Icons.search, color: Colors.black,),
                           ),
                         ),
                       ),
@@ -52,6 +53,25 @@ class MyHomeState extends State<MyHome> {
                 ],
               ),
           ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: FaIcon(
+                FontAwesomeIcons.redditAlien,
+                color: Colors.grey,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle, color: Colors.grey,),
+              label: 'Post',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.library_books, color: Colors.grey,),
+              label: 'Communities',
+            ),
+          ],
+        ),
       ),
     );
   }

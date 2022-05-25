@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Feed/FeedPage.dart';
 
 void main() {
@@ -9,7 +9,6 @@ void main() {
 
 class MyApp extends StatefulWidget {
  // const MyApp({Key? key}) : super(key: key);
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -19,9 +18,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Reddit AP Project',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primaryColor: Colors.white,
+        primaryColorDark: Colors.black,
+        accentColor: Colors.black,
       ),
       home: const MyHomePage(title: 'Reddit '),
     );
@@ -53,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
- //                   MaterialPageRoute(builder: (context) => MyHome()),
+  //                  MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => MyHome()),
                 );
               },
             ),
@@ -68,18 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 })
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-        ],
       ),
     );
   }
