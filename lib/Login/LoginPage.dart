@@ -14,16 +14,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
   DateTime daytime = DateTime.now();
-  String userError = "",
-      desError = "";
+  String userError = "", desError = "";
   bool _isLoading = false;
-
 
   @override
   void dispose() {
-   namec.dispose();
-   pasc.dispose();
-    // TODO: implement dispose
+    namec.dispose();
+    pasc.dispose();
     super.dispose();
   }
 
@@ -31,20 +28,23 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.fromLTRB(50, 50, 50, 400),
-        child: SafeArea(
+        alignment: Alignment.center,
+        color: Color.fromRGBO(93, 177, 142, 1.0),
           child: Card(
+            shadowColor: Colors.grey,
             key: Key('loginCard'),
             elevation: 10,
             borderOnForeground: true,
-            color: Colors.blue,
+            color: Colors.white,
             margin: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Expanded(
-                  key: Key('username'),
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Column(
+                children: [
+                  Container(
+                    key: Key('username'),
+                    padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 5.0),
                     child: TextField(
                       controller: namec,
                       textAlign: TextAlign.center,
@@ -52,36 +52,34 @@ class _LoginPageState extends State<LoginPage> {
                           errorText: userError,
                           hintText: "Username",
                           contentPadding:
-                          const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                              const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                           border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)))),
                     ),
                   ),
-                ),
-              Expanded(
-                key: Key('password'),
-                child:
-              Container(
-                padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
-              //    margin: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 8.0),
-                  child: TextField(
-                    controller: pasc,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                        hintText: "Password",
-                        errorText: desError,
-                        contentPadding:
-                        const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
-                        border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+                  Container(
+                    key: Key('password'),
+                    padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
+                    //    margin: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 8.0),
+                    child: TextField(
+                      controller: pasc,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          hintText: "Password",
+                          errorText: desError,
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                          border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)))),
+                    ),
                   ),
-                ),
-              ),
-                Container(
+                  Container(
                     key: Key('loginButton'),
-                   // margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
+                    // margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
                     child: MaterialButton(
-                     // padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                      // padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8.0))),
                       color: Colors.blueAccent,
@@ -103,17 +101,16 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       },
                       child: const Text(
-                        "ADD",
+                        "Login",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }
-
