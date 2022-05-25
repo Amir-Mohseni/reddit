@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
 
+import 'Feed/FeedPage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -51,12 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+ //                   MaterialPageRoute(builder: (context) => MyHome()),
                 );
               },
             ),
             RaisedButton(
-                child: Text('sing up'),
+                child: Text('Sign up'),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -65,6 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 })
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+        ],
       ),
     );
   }
