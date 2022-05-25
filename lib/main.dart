@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
+import 'package:reddit/SingUp/SingUp.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
                   );
                 })
           ],
