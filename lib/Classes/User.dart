@@ -11,6 +11,7 @@ class User {
   Object? profileImage;
   String? bio;
   List<Post>? Posts;
+  List<Post>? savedPosts;
   List<Community>? communities;
 
   User({  this.username,  this.password, this.email, this.name,  this.id,
