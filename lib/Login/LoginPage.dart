@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit/Classes/AllUsers.dart';
+import 'package:reddit/eg.%20Colors.dar.dart';
 import 'package:reddit/main.dart';
 
 import '../Classes/User.dart';
@@ -38,16 +39,16 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        color: Color.fromRGBO(93, 177, 142, 1.0),
+        color: blackorange,
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
+              borderRadius: BorderRadius.circular(150.0),
             ),
             shadowColor: Colors.grey,
             key: Key('loginCard'),
             elevation: 100,
             borderOnForeground: false,
-            color: Colors.white,
+            color: orangeblack,
             margin: EdgeInsets.all(20),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -56,16 +57,20 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Container(
                     key: Key('username'),
-                    padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 5.0),
+                    padding: EdgeInsets.fromLTRB(30.0, 80.0, 30.0, 5.0),
+                    color: Colors.white,
                     child: TextField(
                       controller: namec,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
+                          alignLabelWithHint: true,
+                          hoverColor: Colors.white,
+                          fillColor: Colors.white,
+                          focusColor: Colors.white,
                           errorText: userError,
                           hintText: "Username",
                           contentPadding:
                               const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
-
                           border: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)))),
@@ -91,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     key: Key('loginButton'),
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 5.0),
+                    padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 5.0),
                     child: MaterialButton(
                        color : Color.fromRGBO(93, 177, 142, 1.0),
                       shape: const RoundedRectangleBorder(

@@ -73,6 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ListView.builder(
                 itemCount: user?.Posts?.length ?? 0,
                 itemBuilder: (context, index) {
+                  print(user?.Posts?.length.toString());
                   return postTile(user!.Posts![index]);
                 },
               )),
@@ -148,26 +149,26 @@ class _ProfilePageState extends State<ProfilePage> {
               curve: Curves.easeIn,
               child: Text(
                 'Profile',
-                style: TextStyle(color: orangepurpule),
+                style: TextStyle(color: orangepurple),
               ),
               decoration: BoxDecoration(
-                color: purpulorange,
+                color: purpleorange,
               ),
             ),
             ListTile(
-              title: Text('Home', style: TextStyle(color: orangepurpule)),
+              title: Text('Home', style: TextStyle(color: orangepurple)),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Profile', style: TextStyle(color: orangepurpule)),
+              title: Text('Profile', style: TextStyle(color: orangepurple)),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Logout', style: TextStyle(color: orangepurpule)),
+              title: Text('Logout', style: TextStyle(color: orangepurple)),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -180,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
           children: [
-            Icon(icon, size: 60, color: orangepurpule),
+            Icon(icon, size: 60, color: orangepurple),
             Text(sub),
           ],
         ),

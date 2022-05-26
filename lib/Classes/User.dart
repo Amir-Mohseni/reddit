@@ -15,5 +15,5 @@ class User {
   List<Community>? communities;
 
   User({  this.username,  this.password, this.email, this.name,  this.id,
-      this.profileImage, this.bio});
+      this.profileImage, this.bio, List<Post>? Posts});
 }
