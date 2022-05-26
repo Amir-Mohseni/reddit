@@ -15,4 +15,8 @@ class User {
 
   User({  this.username,  this.password, this.email, this.name,  this.id,
       this.profileImage, this.bio});
+
+  void removePost(Post post) {
+    Posts?.remove(post);
+  }
 }
