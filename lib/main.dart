@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/SingUp/SingUp.dart';
 
+import 'Classes/Post.dart';
 import 'Classes/User.dart';
+import 'Feed/FeedPage.dart';
+import 'ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,11 +43,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<User>? users = [];
   User? mainUser;
-
+  List<Post> posts = [];
 
   @override
   initState() {
     super.initState();
+    posts =[
+      Post(
+        content: 'title1',),
+      Post(
+        content: 'title2',),
+      Post(
+        content: 'title3',),
+    ];
     users = [
       User(
         username: 'useruser1',
@@ -55,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         password: 'pass2',
       ),
     ];
+    users![0].Posts = posts.cast<Post>();
   }
 
   // users.add( User(username : "user",password: "user"));
@@ -100,13 +112,25 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             RaisedButton(
-                child: Text('sing up'),
+                child: Text('profilepage'),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage(addUser: addUser,)),
+                    MaterialPageRoute(builder: (context) => ProfilePage(user: users![0],)),
                   );
-                })
+                }),
+            RaisedButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignUpPage(addUser: addUser)),
+              );
+            }, child: Text('Sing Up')),
+            RaisedButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyHome()),
+              );
+            }, child: Text('home')),
           ],
         ),
       ),

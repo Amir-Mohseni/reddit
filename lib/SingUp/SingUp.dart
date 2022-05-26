@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/eg.%20Colors.dar.dart';
 
 import '../Classes/User.dart';
 
@@ -36,13 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        color: Color.fromRGBO(93, 177, 142, 1.0),
+        color: purpleorange,
         child: Card(
           shadowColor: Colors.grey,
           key: Key('loginCard'),
           elevation: 10,
           borderOnForeground: true,
-          color: Colors.white,
+          color: orangepurple,
           margin: EdgeInsets.all(20),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8,

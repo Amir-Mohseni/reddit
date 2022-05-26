@@ -21,7 +21,37 @@ class MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: new Scaffold(
+      child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Profile'),
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                ),
+              ),
+              ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Profile'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Logout'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        )  ,
           appBar: new AppBar(
             leading: Icon(Icons.supervised_user_circle),
               title: Container(
