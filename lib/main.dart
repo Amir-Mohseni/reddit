@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/SingUp/SingUp.dart';
-
+import 'Feed/FeedPage.dart';
 import 'Classes/User.dart';
 
 void main() {
@@ -18,9 +18,12 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Reddit AP Project',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primaryColorDark: Colors.black,
+        primaryColor: Colors.white,
+        accentColor: Colors.black,
       ),
       home: const MyHomePage(title: 'Reddit '),
     );
@@ -100,7 +103,17 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             RaisedButton(
-                child: Text('sing up'),
+              child: Text('Feed(Beta)'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyHome()),
+                );
+              },
+            ),
+            RaisedButton(
+                child: Text('Sign up'),
                 onPressed: () {
                   Navigator.push(
                     context,

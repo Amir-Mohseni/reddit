@@ -103,11 +103,11 @@ class _LoginPageState extends State<LoginPage> {
                           {
                            // print(namec.text);
                            // print(regExp.hasMatch(pasc.text));
-                            userError = "username must be at list 8 characters long";
+                            userError = "username must be at least 8 characters long";
                             desError="";
                           } else if (!regExp.hasMatch(pasc.text) ) {
                             userError = "";
-                            desError = "password must be at list 8 characters long containing one uppercase letter one lowercase letter and one number";
+                            desError = "password must be at least 8 characters long containing one uppercase letter one lowercase letter and one number";
                           } else {
                             userError = "";
                             desError = "";
