@@ -14,11 +14,23 @@ class Community{
   }
 
   void addUser(User user){
-    users.add(user);
+    if(!users.contains(user)){
+      users.add(user);
+    }
+  }
+
+  void addAdmin(User user){
+    if(!admins.contains(user)){
+      admins.add(user);
+      users.add(user);
+    }
   }
 
   void removeUser(User user){
-    users.remove(user);
+    if(users.contains(user)){
+      users.remove(user);
+      admins.remove(user);
+    }
     for (int i = 0; i < posts.length; i++) {
       if (posts[i].user == user) {
         posts.removeAt(i);
@@ -28,6 +40,14 @@ class Community{
 
   bool containsUser(User user){
     for(User u in users){
+      if(u.username == user.username)
+        return true;
+    }
+    return false;
+  }
+
+  bool isAdmin(User user){
+    for(User u in admins){
       if(u.username == user.username)
         return true;
     }

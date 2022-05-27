@@ -131,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       });
                     },
                     child: const Text(
-                      "Sign In",
+                      "Sign Up",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
