@@ -17,11 +17,38 @@ class MyHomeState extends State<MyHome> {
     super.dispose();
   }
 
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Add Post',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Communities',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
+      child: new Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -51,7 +78,7 @@ class MyHomeState extends State<MyHome> {
               ),
             ],
           ),
-        )  ,
+        ),
           appBar: new AppBar(
             leading: Icon(Icons.supervised_user_circle),
               title: Container(
@@ -83,6 +110,7 @@ class MyHomeState extends State<MyHome> {
                 ],
               ),
           ),
+
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -101,6 +129,9 @@ class MyHomeState extends State<MyHome> {
               label: 'Communities',
             ),
           ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue,
+          onTap: _onItemTapped,
         ),
       ),
     );
