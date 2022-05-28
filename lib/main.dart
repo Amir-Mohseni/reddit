@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Reddit AP Project',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -48,14 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
-    posts =[
-      Post(
-        content: 'title1',),
-      Post(
-        content: 'title2',),
-      Post(
-        content: 'title3',),
-    ];
     users = [
       User(
         username: 'useruser1',
@@ -65,6 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
         username: 'user2',
         password: 'pass2',
       ),
+    ];
+    posts =[
+      Post(
+        content: 'title1', author: users![0],),
+      Post(
+        content: 'title2', author: users![0],),
+      Post(
+        content: 'title3', author: users![1],),
     ];
     users![0].Posts = posts.cast<Post>();
   }
@@ -112,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             RaisedButton(
-                child: Text('profilepage'),
+                child: Text('Profile'),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 MaterialPageRoute(builder: (context) => SignUpPage(addUser: addUser)),
               );
-            }, child: Text('Sing Up')),
+            }, child: Text('Sign Up')),
             RaisedButton(onPressed: () {
               Navigator.push(
                 context,

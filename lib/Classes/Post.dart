@@ -1,4 +1,5 @@
 import 'Like.dart';
+import 'User.dart';
 
 class Post{
   dynamic content;
@@ -7,6 +8,7 @@ class Post{
   Object? image;
   int? likeCount;
   Like? like;
+  User author;
 
-  Post({ required this.content, this.id, this.image, this.likeCount,this.like});
+  Post({ required this.content, this.id, this.image, this.likeCount,this.like, required this.author});
 }
