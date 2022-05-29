@@ -41,7 +41,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<User>? users = [];
+  List<User>? users;
   User? mainUser;
   List<Post> posts = [];
 
@@ -50,11 +50,35 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     posts =[
       Post(
-        content: 'title1',),
+        content: 'title1',
+        comments: [
+          'comment1',
+          'comment2',
+          'comment3',
+          'comment4',
+          'comment5',
+          'comment6',
+        ],),
       Post(
-        content: 'title2',),
+        content: 'title2',
+        comments: [
+          'comment1',
+          'comment2',
+          'comment3',
+          'comment4',
+          'comment5',
+          'comment6',
+        ],),
       Post(
-        content: 'title3',),
+        content: 'title3',
+        comments: [
+          'comment1',
+          'comment2',
+          'comment3',
+          'comment4',
+          'comment5',
+          'comment6',
+        ],),
     ];
     users = [
       User(
@@ -67,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ];
     users![0].Posts = posts.cast<Post>();
+    users![1].Posts = posts.cast<Post>();
   }
 
   // users.add( User(username : "user",password: "user"));
@@ -128,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MyHome()),
+                MaterialPageRoute(builder: (context) => FeedPage(users)),
               );
             }, child: Text('home')),
           ],
