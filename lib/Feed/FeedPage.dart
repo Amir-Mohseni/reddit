@@ -20,7 +20,7 @@ class _FeedPageState extends State<FeedPage> {
   List<Post>? posts = [];
   List<Post>? postsForPopular = [];
   PageController pageController =
-      PageController(initialPage: 0, viewportFraction: 0.8);
+      PageController(initialPage: 0, viewportFraction: 1);
   int currentPage = 0;
   bool onhome = true;
 
@@ -170,15 +170,14 @@ class _FeedPageState extends State<FeedPage> {
           ],
         ),
         body: PageView(
-          controller: pageController,
-          children: [
-            Container(
-                width: 30000,
-                child: PosttileFeed(posts: postsForHome ?? [])),
-            PosttileFeed(posts: postsForPopular ?? []),
-          ],
+            key: const PageStorageKey<String>('FeedPage'),
+            controller: pageController,
+            children: [
+              PosttileFeed(posts: postsForHome ?? []),
+              PosttileFeed(posts: postsForPopular ?? []),
+            ],
+          ),
         ),
-      ),
     );
   }
 }

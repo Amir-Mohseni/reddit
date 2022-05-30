@@ -21,7 +21,6 @@ class _PosttileFeedState extends State<PosttileFeed> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         itemCount: posts.length,
         itemBuilder: (BuildContext context, int index) {
@@ -31,7 +30,6 @@ class _PosttileFeedState extends State<PosttileFeed> {
               postTile( posts[index]),
               Container(
                 height: 100,
-                width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
