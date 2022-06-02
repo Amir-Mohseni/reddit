@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    String? titl;
+    String? title;
     return Scaffold(
       drawer: drawer(),
       appBar: AppBar(
@@ -55,11 +55,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         Expanded(
                             child: Row(
                           children: [
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user!.Posts.length.toString(),
                                 FontAwesomeIcons.comments),
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user!.Posts.length.toString(),
                                 FontAwesomeIcons.comments),
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user!.Posts.length.toString(),
                                 FontAwesomeIcons.comments),
                             //  iconAndSub(user!.communities!.length.toString(),FontAwesomeIcons.users),
                           ],
@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 itemCount: user?.Posts?.length ?? 0,
                 itemBuilder: (context, index) {
                   print(user?.Posts?.length.toString());
-                  return postTile(user!.Posts![index]);
+                  return postTile(user!.Posts[index]);
                 },
               )),
             ),
@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
               top: 440,
               left: 10,
-              child: Text(post?.content,
+              child: Text(post.content,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
