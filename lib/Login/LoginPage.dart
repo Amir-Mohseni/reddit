@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     key: Key('username'),
                     padding: EdgeInsets.fromLTRB(30.0, 80.0, 30.0, 5.0),
-                    color: Colors.white,
+                   // color: Colors.white,
                     child: TextField(
                       controller: namec,
                       textAlign: TextAlign.center,
