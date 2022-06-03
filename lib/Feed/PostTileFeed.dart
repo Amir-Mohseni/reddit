@@ -6,10 +6,10 @@ import '../Classes/Post.dart';
 import '../Classes/User.dart';
 import '../eg. Colors.dar.dart';
 
-
 class PosttileFeed extends StatefulWidget {
   List<Post> posts;
-  PosttileFeed({Key? key,required this.posts}) : super(key: key);
+
+  PosttileFeed({Key? key, required this.posts}) : super(key: key);
 
   @override
   State<PosttileFeed> createState() => _PosttileFeedState(posts);
@@ -17,17 +17,19 @@ class PosttileFeed extends StatefulWidget {
 
 class _PosttileFeedState extends State<PosttileFeed> {
   List<Post> posts;
+
   _PosttileFeedState(this.posts);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
         itemCount: posts.length,
         itemBuilder: (BuildContext context, int index) {
-          int i=index;
+          int i = index;
           return Column(
             children: [
-              postTile( posts[index]),
+              postTile(posts[index]),
               Container(
                 height: 100,
                 child: ListView.builder(
@@ -38,13 +40,11 @@ class _PosttileFeedState extends State<PosttileFeed> {
                       return Container(
                         color: Colors.grey[200],
                         child: ListTile(
-                          title: Text(posts[i].user?.username?? 'nulllll',
+                          title: Text(posts[i].user?.username ?? 'nulllll',
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
                           subtitle: Text(
-                            posts?[i].comments!
-                                .elementAt(index) ??
+                            posts?[i].comments!.elementAt(index) ??
                                 'nulllllllll',
                             style: TextStyle(color: orangeblack),
                           ),
@@ -58,21 +58,74 @@ class _PosttileFeedState extends State<PosttileFeed> {
       ),
     );
   }
+
   Widget postTile(Post post) {
     return Container(
-      height: 470,
+      height: 600,
       color: Colors.black,
       child: Stack(
         alignment: Alignment.topCenter,
         clipBehavior: Clip.none,
         children: [
-          Image.asset(
-            'assets/images/iconPurple.jpg',
-            height: 400,
-            width: 400,
+          Expanded(
+            child: Container(
+              height: 100,
+              width: 420,
+              child: Card(
+                shadowColor: Colors.white,
+                child: Row(
+                  children: [
+                    Column(
+                        children: [
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            child: Container(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                post.user?.username ?? "nnull",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              post.createdAt.toString() ?? "nnull",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: Image.asset(
+                          'assets/images/iconBlue.jpg',
+                          width: 100,
+                          height: 100,
+                          //  fit:BoxFit.fill
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           Positioned(
-              top: 440,
+            top: 100,
+            child: Image.asset(
+              'assets/images/iconPurple.jpg',
+              height: 400,
+              width: 400,
+            ),
+          ),
+          Positioned(
+              top: 550,
               left: 10,
               child: Text(post?.content,
                   style: TextStyle(
@@ -81,7 +134,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
                     color: Colors.white,
                   ))),
           Positioned(
-              top: 410,
+              top: 510,
               child: Row(
                 children: [
                   Container(

@@ -8,7 +8,7 @@ import '../Classes/User.dart';
 class FeedPage extends StatefulWidget {
   List<User>? users;
 
-  FeedPage(this.users);
+  FeedPage({this.users});
 
   @override
   State<FeedPage> createState() => _FeedPageState(users: users ?? []);

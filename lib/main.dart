@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
-    posts =[
+    posts = [
       Post(
         content: 'title1',
         comments: [
@@ -58,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'comment4',
           'comment5',
           'comment6',
-        ],),
+        ],
+      ),
       Post(
         content: 'title2',
         comments: [
@@ -68,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'comment4',
           'comment5',
           'comment6',
-        ],),
+        ],
+      ),
       Post(
         content: 'title3',
         comments: [
@@ -78,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'comment4',
           'comment5',
           'comment6',
-        ],),
+        ],
+      ),
     ];
     users = [
       User(
@@ -104,16 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-  void containsUser(User user){
-    setState((){
-      for(User u in users!) {
-        if(u.username == user.username && u.password == user.password){
+
+  void containsUser(User user) {
+    setState(() {
+      for (User u in users!) {
+        if (u.username == user.username && u.password == user.password) {
           print("zxfhjzih");
           mainUser = user;
         }
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,38 +129,26 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text('Login'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SignUpPage(addUser: addUser,users: users,)),
+                  );
+                },
+                child: Text('Sing Up')),
+            RaisedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginPage(containsUser: containsUser)),
+                      builder: (context) => FeedPage(users: users)),
                 );
               },
-            ),
-            RaisedButton(
-                child: Text('profilepage'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfilePage(user: users![0],)),
-                  );
-                }),
-            RaisedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignUpPage(addUser: addUser)),
-              );
-            }, child: Text('Sing Up')),
-            RaisedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FeedPage(users)),
-              );
-            }, child: Text('home')),
+              child: Text('Feed'),
+            )
           ],
         ),
       ),
