@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/SingUp/SingUp.dart';
+import 'package:reddit/splash.dart';
 
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(title: 'Reddit '),
+      home: const Splash(),
     );
   }
 }
