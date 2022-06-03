@@ -72,7 +72,7 @@ class Community{
   void removePost(Post post){
     posts.remove(post);
     for (int i = 0; i < users.length; i++) {
-      if (users[i].username == post.author.username) {
+      if (users[i].username == post.user?.username) {
         users[i].removePost(post);
       }
     }
