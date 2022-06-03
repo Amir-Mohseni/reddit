@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
+import 'package:reddit/Feed/add_post.dart';
 
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
 class FeedPage extends StatefulWidget {
   List<User>? users;
-
-  FeedPage(this.users);
+  User user;
+  FeedPage(this.users, this.user);
 
   @override
-  State<FeedPage> createState() => _FeedPageState(users: users ?? []);
+  State<FeedPage> createState() => _FeedPageState(users: users ?? [], user: user);
 }
 
 class _FeedPageState extends State<FeedPage> {
+  User user;
   List<User>? users = [];
   List<Post>? postsForHome = [];
   List<Post>? posts = [];
@@ -24,7 +26,7 @@ class _FeedPageState extends State<FeedPage> {
   int currentPage = 0;
   bool onhome = true;
 
-  _FeedPageState({required this.users});
+  _FeedPageState({required this.users, required this.user});
 
   @override
   void initState() {
@@ -51,8 +53,22 @@ class _FeedPageState extends State<FeedPage> {
     super.dispose();
   }
 
+  int _index = 0;
+
   @override
   Widget build(BuildContext context) {
+    switch (_index) {
+      case 0:
+
+        break;
+      case 1:
+
+        break;
+      case 2:
+
+        break;
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -145,6 +161,22 @@ class _FeedPageState extends State<FeedPage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            setState(() {
+              _index = index;
+            });
+            if(index == 1) {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (_) {
+                  return AddPost(
+                    key: Key("add post"), user: user,
+                  );
+                }
+              ),
+              );
+            }
+          },
+          currentIndex: _index,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: FaIcon(

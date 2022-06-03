@@ -7,21 +7,19 @@ import '../Classes/User.dart';
 
 class AddPost extends StatefulWidget {
   User user;
-  AddPost({required Key key, required this.addNewPost, required this.user}) : super(key: key);
-  final Function addNewPost;
+  AddPost({required Key key, required this.user}) : super(key: key);
 
   @override
-  State<AddPost> createState() => _AddPostState(user: user, addNewPost: addNewPost);
+  State<AddPost> createState() => _AddPostState(user: user);
 }
 
 class _AddPostState extends State<AddPost> {
   User? user;
-  Function addNewPost;
   late TextEditingController titleC;
   late TextEditingController descC;
   late DateTime dateC;
 
-  _AddPostState({required this.user, required this.addNewPost});
+  _AddPostState({required this.user});
 
   @override
   void initState() {
@@ -64,6 +62,7 @@ class _AddPostState extends State<AddPost> {
                   onPressed: () {
                     String title = titleC.text;
                     String desc = descC.text;
+//                    File image = new File('assets/images/iconPurple.jpg');
                     Post post = Post(content: title, user: user, image: null, likeCount: 0, like: null, comments: null);
                     widget.user.addPost(post);
                     titleC.clear();

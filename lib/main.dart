@@ -153,7 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FeedPage(users)),
+                MaterialPageRoute(builder: (context) => FeedPage(users, users![0])),
+                // need to change later to pass current user
               );
             }, child: Text('home')),
           ],
