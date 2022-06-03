@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Reddit AP Project',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -42,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<User>? users;
-  User? mainUser;
+  late User mainUser;
   List<Post> posts = [];
 
   @override
@@ -138,10 +139,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(
               onPressed: () {
+                mainUser = users![0];
+                // need to change later
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => FeedPage(users: users)),
+                      builder: (context) => FeedPage(users, mainUser)),
                 );
               },
               child: Text('Feed'),

@@ -129,6 +129,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           desError = "";
                           cpassError = "password does not match";
                         } else {
+                          User user = User(
+                              name: namec.text,
+                              password: pasc.text,
+                          );
                           addUser(
                               User(username: namec.text, password: pasc.text));
                           Future.delayed(Duration(milliseconds: 500), () {
@@ -136,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        FeedPage(users: widget.users)));
+                                        FeedPage(widget.users, user)));
                           });
                         }
                       });
