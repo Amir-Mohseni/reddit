@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SignUpPage(addUser: addUser,users: users,)),
+                        builder: (context) => SignUpPage(addUser: addUser,users: users,containsUser: containsUser,)),
                   );
                 },
                 child: Text('Sing Up')),
