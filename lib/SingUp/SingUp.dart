@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/eg.%20Colors.dar.dart';
 
 import '../Classes/User.dart';
+import '../Feed/FeedPage.dart';
 
 class SignUpPage extends StatefulWidget {
   Function addUser;
+  List<User>? users;
+  Function containsUser;
 
-  SignUpPage({Key? key, required this.addUser}) : super(key: key);
+  SignUpPage(
+      {Key? key, required this.addUser, this.users, required this.containsUser})
+      : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState(addUser);
@@ -126,7 +132,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           addUser(
                               User(username: namec.text, password: pasc.text));
                           Future.delayed(Duration(milliseconds: 500), () {
-                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FeedPage(users: widget.users)));
                           });
                         }
                       });
@@ -135,6 +145,23 @@ class _SignUpPageState extends State<SignUpPage> {
                       "Sign In",
                       style: TextStyle(color: Colors.white),
                     ),
+                  ),
+                ),
+                MaterialButton(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage(containsUser: widget.containsUser)));
+                  },
+                  child: const Text(
+                    "Log In",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
