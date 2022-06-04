@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool passwordVisible = false;
   Function containsUser;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
@@ -61,8 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                    // color: Colors.white,
                     child: TextField(
                       controller: namec,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       decoration: InputDecoration(
+                          icon: Icon(Icons.person, color: Colors.blue,),
                           alignLabelWithHint: true,
                           hoverColor: Colors.white,
                           fillColor: Colors.white,
@@ -81,9 +83,27 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
                     //    margin: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 8.0),
                     child: TextField(
+                      obscureText: passwordVisible,
                       controller: pasc,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       decoration: InputDecoration(
+                          icon: Icon(
+                              Icons.lock,
+                              color: Colors.blue,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.blue,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                          ),
                           hintText: "Password",
                           errorText: desError,
                           contentPadding:

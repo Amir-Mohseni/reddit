@@ -26,7 +26,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Reddit AP Project',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primaryColor: Colors.white,
+        primaryColorDark: Colors.black,
+        accentColor: Colors.black,
       ),
       home: const Splash(),
     );
@@ -139,12 +141,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text('Login'),
+              child: Text('Sign Up'),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginPage(containsUser: containsUser)),
+                      builder: (context) => SignUpPage(addUser: addUser, users: users,containsUser: containsUser)),
                 );
               },
             ),

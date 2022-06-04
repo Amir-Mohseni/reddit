@@ -20,6 +20,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool passwordVisible = false;
   Function addUser;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
@@ -61,8 +62,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 5.0),
                   child: TextField(
                     controller: namec,
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                        icon: Icon(Icons.person, color: Colors.blue,),
                         errorText: userError,
                         hintText: "Username",
                         contentPadding:
@@ -78,8 +80,26 @@ class _SignUpPageState extends State<SignUpPage> {
                   //    margin: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 8.0),
                   child: TextField(
                     controller: pasc,
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
+                    obscureText: passwordVisible,
                     decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.lock,
+                          color: Colors.blue,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              passwordVisible = !passwordVisible;
+                            });
+                          },
+                        ),
                         hintText: "Password",
                         errorText: desError,
                         contentPadding:
@@ -93,9 +113,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   key: Key('confirmpassword'),
                   padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
                   child: TextField(
+                    obscureText: true,
                     controller: cpasc,
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.lock_outline,
+                          color: Colors.blue,
+                        ),
                         hintText: "Confirm Password",
                         errorText: cpassError,
                         contentPadding:
@@ -146,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       });
                     },
                     child: const Text(
-                      "Sign In",
+                      "Sign Up",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
