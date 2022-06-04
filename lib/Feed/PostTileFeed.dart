@@ -127,7 +127,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
           Positioned(
               top: 550,
               left: 10,
-              child: Text(post?.content,
+              child: Text(post?.content ?? "nnull",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

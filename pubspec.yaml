@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: '>= 4.7.0'
+  item_selector: '>= 0.0.1'
 
 
   cupertino_icons: ^1.0.2

@@ -3,6 +3,7 @@ import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/SingUp/SingUp.dart';
 import 'package:reddit/splash.dart';
 
+import 'Classes/Community.dart';
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
 import 'Feed/FeedPage.dart';
@@ -52,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     posts =[
       Post(
-        content: 'title1',
+        title: 'title1',
+        content: 'content1',
         comments: [
           'comment1',
           'comment2',
@@ -62,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'comment6',
         ],),
       Post(
-        content: 'title2',
+        title: 'title2',
+        content: 'content2',
         comments: [
           'comment1',
           'comment2',
@@ -72,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'comment6',
         ],),
       Post(
-        content: 'title3',
+        title: 'title3',
+        content: 'content3',
         comments: [
           'comment1',
           'comment2',
@@ -92,6 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
         password: 'pass2',
       ),
     ];
+    Community selectedCommunity = new Community(
+      name: "Test",
+      description: "Test",
+      admins: [users![0]],
+    );
+    users![0].communities.add(selectedCommunity);
     users![0].Posts = posts.cast<Post>();
     users![1].Posts = posts.cast<Post>();
   }

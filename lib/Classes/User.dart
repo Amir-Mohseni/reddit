@@ -15,7 +15,7 @@ class User {
   List<Post>? savedPosts;
   List<Community> communities = [];
 
-  User({  this.username,  this.password, this.email, this.name,  this.id,
+  User({ this.username,  this.password, this.email, this.name,  this.id,
     this.profileImage, this.bio, List<Post>? Posts});
 
   void addPost(Post post){
@@ -34,12 +34,6 @@ class User {
     if(!communities.contains(community)) {
       communities.add(community);
     }
-  }
-
-  void createCommunity(String name, String description, Object? image){
-    List <User> admins = [this];
-    Community community = Community(name, description, admins, image);
-    addCommunity(community);
   }
 
   void removePost(Post post) {

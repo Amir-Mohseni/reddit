@@ -3,6 +3,7 @@ import 'package:reddit/Classes/Post.dart';
 import 'User.dart';
 
 class Community{
+  static List<Community> communities = [];
   String name;
   String description;
   List <User> admins;
@@ -10,10 +11,11 @@ class Community{
   List<User> users = [];
   List<Post> posts = [];
 
-  Community(this.name, this.description, this.admins, this.image) {
+  Community({required this.name, required this.description, required this.admins, this.image}) {
     admins.forEach((admin) {
       users.add(admin);
     });
+    communities.add(this);
   }
 
   void addUser(User user){

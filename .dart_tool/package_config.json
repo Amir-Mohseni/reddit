@@ -110,6 +110,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "interval_tree",
+      "rootUri": "file:///Users/amirreza/flutter/.pub-cache/hosted/pub.dartlang.org/interval_tree-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "item_selector",
+      "rootUri": "file:///Users/amirreza/flutter/.pub-cache/hosted/pub.dartlang.org/item_selector-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/amirreza/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
       "packageUri": "lib/",
@@ -278,7 +290,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-06-03T10:47:03.890154Z",
+  "generated": "2022-06-03T12:49:29.884917Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:item_selector/item_selector.dart';
 
+import '../Classes/Community.dart';
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
@@ -46,12 +48,12 @@ class _AddPostState extends State<AddPost> {
         child: Column(
           children: [
             TextField(
-              decoration: const InputDecoration(hintText: "Title"),
+              decoration: const InputDecoration(hintText: "Add a title"),
               controller: titleC,
               keyboardType: TextInputType.text,
             ),
             TextField(
-              decoration: const InputDecoration(hintText: "Descriptions"),
+              decoration: const InputDecoration(hintText: "Add body text"),
               controller: descC,
             ),
             Container(
@@ -63,8 +65,23 @@ class _AddPostState extends State<AddPost> {
                     String title = titleC.text;
                     String desc = descC.text;
 //                    File image = new File('assets/images/iconPurple.jpg');
-                    Post post = Post(content: title, user: user, image: null, likeCount: 0, like: null, comments: null);
+                    Community? selectedCommunity;
+                    ItemSelectionController(
+                      child: ListView.builder(
+                        itemCount: user?.communities?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            title: Text(user?.communities?.elementAt(index)?.name ?? 'nulllll'),
+                            onTap: () {
+                              selectedCommunity = user?.communities?.elementAt(index);
+                            },
+                          );
+                        },
+                      ),
+                    );
+                    Post post = Post(title: title, content: desc, user: user, community: selectedCommunity, image: null, likeCount: 0, like: null, comments: null);
                     widget.user.addPost(post);
+                    selectedCommunity?.addPost(post);
                     titleC.clear();
                     descC.clear();
                     Navigator.pop(context);

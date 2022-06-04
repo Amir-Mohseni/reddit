@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
 import 'package:reddit/Feed/add_post.dart';
+import 'package:reddit/Feed/community_page.dart';
 
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
@@ -170,6 +171,17 @@ class _FeedPageState extends State<FeedPage> {
                 builder: (_) {
                   return AddPost(
                     key: Key("add post"), user: user,
+                  );
+                }
+              ),
+              );
+            }
+            else if(index == 2) {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (_) {
+                  return CommunityPage(
+                    key: Key("add post")
+                    ,user: user,
                   );
                 }
               ),
