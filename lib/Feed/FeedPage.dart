@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
 import 'package:reddit/Feed/add_post.dart';
 import 'package:reddit/Feed/community_page.dart';
+import 'package:reddit/ProfilePage.dart';
 
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
@@ -13,7 +14,8 @@ class FeedPage extends StatefulWidget {
   FeedPage(this.users, this.user);
 
   @override
-  State<FeedPage> createState() => _FeedPageState(users: users ?? [], user: user);
+  State<FeedPage> createState() =>
+      _FeedPageState(users: users ?? [], user: user);
 }
 
 class _FeedPageState extends State<FeedPage> {
@@ -60,13 +62,12 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     switch (_index) {
       case 0:
-
         break;
       case 1:
-
+        _index = 0;
         break;
       case 2:
-
+        _index = 0;
         break;
     }
 
@@ -110,8 +111,8 @@ class _FeedPageState extends State<FeedPage> {
               setState(() {
                 if (pageController.hasClients)
                   pageController.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut);
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
               });
             },
             tabs: [
@@ -123,7 +124,7 @@ class _FeedPageState extends State<FeedPage> {
               ),
               Tab(
                 icon: Icon(
-                  FontAwesomeIcons.user,
+                  FontAwesomeIcons.fire,
                   color: Colors.white,
                 ),
               ),
@@ -140,7 +141,6 @@ class _FeedPageState extends State<FeedPage> {
                   decoration: InputDecoration(
                     hintText: 'Search',
                     hintStyle: TextStyle(color: Colors.black),
-                    border: InputBorder.none,
                     prefixIcon: Icon(
                       Icons.search,
                       color: Colors.black,
@@ -166,25 +166,35 @@ class _FeedPageState extends State<FeedPage> {
             setState(() {
               _index = index;
             });
-            if(index == 1) {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (_) {
+            if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
                   return AddPost(
-                    key: Key("add post"), user: user,
+                    key: Key("add post"),
+                    user: user,
                   );
-                }
-              ),
+                }),
               );
-            }
-            else if(index == 2) {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (_) {
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
                   return CommunityPage(
-                    key: Key("add post")
-                    ,user: user,
+                    key: Key("add post"),
+                    user: user,
                   );
-                }
-              ),
+                }),
+              );
+            } else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
+                  return ProfilePage(
+                    key: Key("Profile Page"),
+                    user: user,
+                  );
+                }),
               );
             }
           },
@@ -206,22 +216,29 @@ class _FeedPageState extends State<FeedPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.library_books,
+                Icons.people,
                 color: Colors.grey,
               ),
               label: 'Communities',
             ),
+            BottomNavigationBarItem(
+              icon: FaIcon(
+                FontAwesomeIcons.user,
+                color: Colors.grey,
+              ),
+              label: 'Profile',
+            ),
           ],
         ),
         body: PageView(
-            key: const PageStorageKey<String>('FeedPage'),
-            controller: pageController,
-            children: [
-              PosttileFeed(posts: postsForHome ?? []),
-              PosttileFeed(posts: postsForPopular ?? []),
-            ],
-          ),
+          key: const PageStorageKey<String>('FeedPage'),
+          controller: pageController,
+          children: [
+            PosttileFeed(posts: postsForHome ?? []),
+            PosttileFeed(posts: postsForPopular ?? []),
+          ],
         ),
+      ),
     );
   }
 }

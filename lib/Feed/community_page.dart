@@ -29,6 +29,7 @@ class _CommunityPageState extends State<CommunityPage> {
           itemCount: user?.communities.length,
           itemBuilder: (context, index) {
             return CommunityItem(
+              user: user!,
               community: user?.communities[index] ?? Community(name: "", description: "", admins: [user!]),
               key: Key("Community Item"),
             );

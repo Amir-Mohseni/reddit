@@ -6,19 +6,19 @@ import '../Classes/Post.dart';
 import '../Classes/User.dart';
 import '../eg. Colors.dar.dart';
 
-class PosttileFeed extends StatefulWidget {
+class PosttileCommunity extends StatefulWidget {
   List<Post> posts;
 
-  PosttileFeed({Key? key, required this.posts}) : super(key: key);
+  PosttileCommunity({Key? key, required this.posts}) : super(key: key);
 
   @override
-  State<PosttileFeed> createState() => _PosttileFeedState(posts);
+  State<PosttileCommunity> createState() => _PosttileCommunity(posts);
 }
 
-class _PosttileFeedState extends State<PosttileFeed> {
+class _PosttileCommunity extends State<PosttileCommunity> {
   List<Post> posts;
 
-  _PosttileFeedState(this.posts);
+  _PosttileCommunity(this.posts);
 
   @override
   Widget build(BuildContext context) {
@@ -76,29 +76,29 @@ class _PosttileFeedState extends State<PosttileFeed> {
                 child: Row(
                   children: [
                     Column(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            child: Container(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                post.user?.username ?? "nnull",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.topLeft,
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 10),
                             child: Text(
-                              post.createdAt.toString().substring(0, 19) ?? "nnull",
+                              post.user?.username ?? "nnull",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            post.createdAt.toString().substring(0, 19) ?? "nnull",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
                     Expanded(
                       child: Container(
                         alignment: Alignment.topLeft,

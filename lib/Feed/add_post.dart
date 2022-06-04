@@ -17,6 +17,7 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
   User? user;
+  Community? community;
   late TextEditingController titleC;
   late TextEditingController descC;
   late DateTime dateC;
@@ -55,8 +56,10 @@ class _AddPostState extends State<AddPost> {
             TextField(
               decoration: const InputDecoration(hintText: "Add body text"),
               controller: descC,
+              maxLines: 5,
             ),
             Container(
+              alignment: Alignment.bottomCenter,
               margin: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
               width: 80,
               height: 40,
@@ -64,8 +67,6 @@ class _AddPostState extends State<AddPost> {
                   onPressed: () {
                     String title = titleC.text;
                     String desc = descC.text;
-//                    File image = new File('assets/images/iconPurple.jpg');
-                    Community? selectedCommunity;
                     ItemSelectionController(
                       child: ListView.builder(
                         itemCount: user?.communities?.length ?? 0,
@@ -73,20 +74,22 @@ class _AddPostState extends State<AddPost> {
                           return ListTile(
                             title: Text(user?.communities?.elementAt(index)?.name ?? 'nulllll'),
                             onTap: () {
-                              selectedCommunity = user?.communities?.elementAt(index);
+                              setState(() {
+                                community = user?.communities?.elementAt(index);
+                              });
                             },
                           );
                         },
                       ),
                     );
-                    Post post = Post(title: title, content: desc, user: user, community: selectedCommunity, image: null, likeCount: 0, like: null, comments: null);
+                    Post post = Post(title: title, content: desc, user: user, community: community, image: null, likeCount: 0, like: null, comments: null);
                     widget.user.addPost(post);
-                    selectedCommunity?.addPost(post);
+                    community?.addPost(post);
                     titleC.clear();
                     descC.clear();
                     Navigator.pop(context);
                   },
-                  child: const Text("Add")),
+                  child: const Text("Add", )),
             )
           ],
         ),
