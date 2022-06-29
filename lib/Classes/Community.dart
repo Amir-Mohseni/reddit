@@ -11,6 +11,7 @@ class Community{
   List<User> users = [];
   List<Post> posts = [];
 
+
   Community({required this.name, required this.description, required this.admins, this.image}) {
     admins.forEach((admin) {
       users.add(admin);
@@ -39,6 +40,7 @@ class Community{
     for (int i = 0; i < posts.length; i++) {
       if (posts[i].user == user) {
         posts.removeAt(i);
+        i--;
       }
     }
   }

@@ -20,7 +20,6 @@ class _AddPostState extends State<AddPost> {
   Community? community;
   late TextEditingController titleC;
   late TextEditingController descC;
-  late DateTime dateC;
 
   _AddPostState({required this.user});
 
