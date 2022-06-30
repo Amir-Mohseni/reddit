@@ -35,7 +35,7 @@ class _PosttileCommunity extends State<PosttileCommunity> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
-                    itemCount: posts?[i].comments?.length ?? 0,
+                    itemCount: posts[i].comments?.length ?? 0,
                     itemBuilder: (context, index) {
                       return Container(
                         color: Colors.grey[200],

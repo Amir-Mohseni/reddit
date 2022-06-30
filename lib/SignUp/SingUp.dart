@@ -16,14 +16,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  bool passwordVisible = false;
+  bool passwordVisible = true;
+  bool success = false;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
   TextEditingController cpasc = TextEditingController();
   DateTime daytime = DateTime.now();
   String userError = "", desError = "", cpassError = "";
   RegExp regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
-  bool _isLoading = false;
 
   _SignUpPageState();
 
@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: TextField(
                       controller: pasc,
                       textAlign: TextAlign.left,
-                      obscureText: passwordVisible,
+                      obscureText: !passwordVisible,
                       decoration: InputDecoration(
                           icon: Icon(
                             Icons.lock,
@@ -149,17 +149,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             desError = "";
                             cpassError = "password does not match";
                           } else {
-                            userError = "not connected to server";
+                            userError = "";
                             desError = "";
                             cpassError = "";
                             User user = User(
                                 name: namec.text,
                                 password: pasc.text,
                             );
-                            setState(() {
-                              SignUp(namec.text, pasc.text);
-                            });
-                            if(userError == "") {
+                            SignUp(namec.text, pasc.text);
+                            if(success == true) {
                               Future.delayed(Duration(milliseconds: 500), () {
                                 Navigator.push(
                                     context,
@@ -168,6 +166,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                             FeedPage(user)));
                               });
                             }
+                            else
+                              print("error");
                           }
                         });
                       },
@@ -206,6 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void SignUp(String username, String password) async {
     String request = "sign up\nusername:$username,,password:$password\u0000";
     await Socket.connect('192.168.0.235', 8080).then((serverSocket) {
+//      await Socket.connect('10.0.2.2', 8080).then((serverSocket) {
       serverSocket.write(request);
       serverSocket.flush();
       serverSocket.listen((data) {
@@ -213,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
         print(result);
         if (result.contains("success")) {
             setState(() {
-              userError = "";
+              success = true;
             });
         } else {
           setState(() {

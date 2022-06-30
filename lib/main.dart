@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/Login/LoginPage.dart';
 import 'package:reddit/splash.dart';
-
 import 'Classes/Community.dart';
-import 'Classes/Like.dart';
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
 import 'Feed/FeedPage.dart';
-import 'ProfilePage.dart';
 import 'SignUp/SingUp.dart';
 
 void main() {

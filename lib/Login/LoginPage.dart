@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reddit/Classes/AllUsers.dart';
 import 'package:reddit/eg.%20Colors.dar.dart';
 import '../Classes/User.dart';
 import '../Feed/FeedPage.dart';
@@ -22,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController pasc = TextEditingController();
   DateTime daytime = DateTime.now();
   String userError = "", desError = "";
-  bool _isLoading = false;
+  bool success = false;
   RegExp regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
 
   _LoginPageState();
@@ -87,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0),
                     //    margin: EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 8.0),
                     child: TextField(
-                      obscureText: passwordVisible,
+                      obscureText: !passwordVisible,
                       controller: pasc,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
@@ -137,12 +136,10 @@ class _LoginPageState extends State<LoginPage> {
                             desError =
                                 "password must be at least 8 characters long\n containing one uppercase letter one lowercase letter and one number\n";
                           } else {
-                            userError = "Not connected to server";
+                            userError = "";
                             desError = "";
-                            setState((){
-                              Login(namec.text, pasc.text);
-                            });
-                            if(userError == "") {
+                            Login(namec.text, pasc.text);
+                            if(success == true) {
                               User user = new User(username: namec.text, password: pasc.text);
                               Future.delayed(Duration(milliseconds: 500), () {
                                 Navigator.push(
@@ -152,6 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                                             FeedPage(user)));
                               });
                             }
+                          else
+                            print("error");
                           }
                         });
                       },
@@ -173,15 +172,16 @@ class _LoginPageState extends State<LoginPage> {
   void Login(String username, String password) async {
     String request = "sign in\nusername:$username,,password:$password\u0000";
     await Socket.connect('192.168.0.235', 8080).then((serverSocket) {
+//    await Socket.connect('10.0.2.2', 8080).then((serverSocket) {
       serverSocket.write(request);
       serverSocket.flush();
       serverSocket.listen((data) {
         String result = String.fromCharCodes(data).trim();
-        String expected = "signIn:$username:success";
         print(result);
         if (result.contains("success")) {
           setState(() {
             userError = "";
+            success = true;
           });
         } else {
           setState(() {

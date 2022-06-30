@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:item_selector/item_selector.dart';
-
 import '../Classes/Community.dart';
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
