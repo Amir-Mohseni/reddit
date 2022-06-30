@@ -1,16 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:reddit/Feed/PostTileFeed.dart';
+import 'package:reddit/Feed/add_post.dart';
+import 'package:reddit/Feed/community_page.dart';
+import 'package:reddit/ProfilePage.dart';
 
+import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
-class MyHome extends StatefulWidget {
+class FeedPage extends StatefulWidget {
+  List<User>? users;
+  User user;
+  FeedPage(this.users, this.user);
+
   @override
-  MyHomeState createState() => new MyHomeState();
+  State<FeedPage> createState() =>
+      _FeedPageState(users: users ?? [], user: user);
 }
 
-class MyHomeState extends State<MyHome> {
+class _FeedPageState extends State<FeedPage> {
+  User user;
+  List<User> users;
+  List<Post>? postsForHome = [];
+  List<Post>? posts = [];
+  List<Post>? postsForPopular = [];
+  PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 1);
+  int currentPage = 0;
+  bool onhome = true;
+
+  _FeedPageState({required this.users, required this.user});
+
   @override
   void initState() {
+    setState(() {
+      for(User user in users) {
+        posts?.addAll(user.Posts);
+      }
+      posts?.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
+      postsForHome=posts;
+      posts?.sort((a, b) => b.likes.length!.compareTo(a.likes.length??0));
+      postsForPopular=posts;
+    });
     super.initState();
   }
 
@@ -19,61 +50,47 @@ class MyHomeState extends State<MyHome> {
     super.dispose();
   }
 
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Add Post',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Communities',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
+    switch (_index) {
+      case 0:
+        break;
+      case 1:
+        _index = 0;
+        break;
+      case 2:
+        _index = 0;
+        break;
+    }
+
     return DefaultTabController(
       length: 2,
-      child: new Scaffold(
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+      child: Scaffold(
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
-              DrawerHeader(
-                child: Text('Profile'),
+              const DrawerHeader(
+                child: const Text('Profile'),
                 decoration: BoxDecoration(
                   color: Colors.greenAccent,
                 ),
               ),
               ListTile(
-                title: Text('Home'),
+                title: const Text('Home'),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text('Profile'),
+                title: const Text('Profile'),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text('Logout'),
+                title: const Text('Logout'),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -81,39 +98,101 @@ class MyHomeState extends State<MyHome> {
             ],
           ),
         ),
-          appBar: new AppBar(
-            leading: Icon(Icons.supervised_user_circle),
-              title: Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search',
-                            hintStyle: TextStyle(color: Colors.black),
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.search, color: Colors.black,),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+        appBar: AppBar(
+          bottom: TabBar(
+            onTap: (int index) {
+              print(postsForPopular.toString());
+              setState(() {
+                if (pageController.hasClients)
+                  pageController.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+              });
+            },
+            tabs: [
+              Tab(
+                icon: Icon(
+                  FontAwesomeIcons.home,
+                  color: Colors.white,
+                ),
               ),
-              bottom: new TabBar(
-                tabs: [
-                  Tab(
-                    child: Text('Home'),
-                  ),
-                  Tab(
-                    child: Text('Popular'),
-                  ),
-                ],
+              Tab(
+                icon: Icon(
+                  FontAwesomeIcons.fire,
+                  color: Colors.white,
+                ),
               ),
+            ],
           ),
-
+          leading: const Icon(Icons.supervised_user_circle),
+          title: Container(
+              child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const <Widget>[
+              Expanded(
+                flex: 1,
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Colors.black),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add_circle_outline),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {},
+            ),
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            setState(() {
+              _index = index;
+            });
+            if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
+                  return AddPost(
+                    key: Key("add post"),
+                    user: user,
+                  );
+                }),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
+                  return CommunityPage(
+                    key: Key("add post"),
+                    user: user,
+                  );
+                }),
+              );
+            } else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) {
+                  return ProfilePage(
+                    key: Key("Profile Page"),
+                    user: user,
+                  );
+                }),
+              );
+            }
+          },
+          currentIndex: _index,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: FaIcon(
@@ -123,17 +202,35 @@ class MyHomeState extends State<MyHome> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle, color: Colors.grey,),
+              icon: Icon(
+                Icons.add_circle,
+                color: Colors.grey,
+              ),
               label: 'Post',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.library_books, color: Colors.grey,),
+              icon: Icon(
+                Icons.people,
+                color: Colors.grey,
+              ),
               label: 'Communities',
             ),
+            BottomNavigationBarItem(
+              icon: FaIcon(
+                FontAwesomeIcons.user,
+                color: Colors.grey,
+              ),
+              label: 'Profile',
+            ),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
+        ),
+        body: PageView(
+          key: const PageStorageKey<String>('FeedPage'),
+          controller: pageController,
+          children: [
+            PosttileFeed(posts: posts ?? []),
+            PosttileFeed(posts: postsForPopular ?? []),
+          ],
         ),
       ),
     );

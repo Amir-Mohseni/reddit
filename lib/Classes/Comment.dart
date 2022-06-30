@@ -1,38 +1,41 @@
+import 'Like.dart';
 import 'Post.dart';
 import 'User.dart';
 
-class Comment {
-  String text;
-  User author;
+class comment {
+  String? content;
+  User? commenter;
+  DateTime? createdAt;
+  List<comment>? replies;
+  List<Like>? likes;
   Post post;
-  DateTime createdAt = DateTime.now();
-  List<User> likes = [];
-  List<Comment> replies = [];
-
-  Comment(this.text, this.author, this.post);
-
-  void addLike(User user) {
-    if (!likes.contains(user)) {
-      likes.add(user);
+  comment({required this.content, required this.commenter, this.createdAt, this.replies, this.likes, required this.post});
+  void addReply(comment reply){
+    replies?.add(reply);
+  }
+  void addLike(Like like){
+    likes?.add(like);
+  }
+  void removeLike(Like like){
+    if(likes == null){
+      likes = [];
     }
+    likes?.remove(like);
   }
-
-  void removeLike(User user) {
-    if (likes.contains(user)) {
-      likes.remove(user);
+  bool containsLike(Like like){
+    if(likes == null){
+      likes = [];
     }
+    return likes?.contains(like)??false;
   }
-
-  bool isLikedBy(User user) {
-    return likes.contains(user);
+  void changeContent(String content){
+    this.content = content;
   }
-
-  void addReply(Comment comment) {
-    replies.add(comment);
-  }
-
-  void removeReply(Comment comment) {
-    replies.remove(comment);
+  void removeReply(comment reply){
+    if(replies == null){
+      replies = [];
+    }
+    replies?.remove(reply);
   }
 
 }

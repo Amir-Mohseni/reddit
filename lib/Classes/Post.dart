@@ -1,14 +1,71 @@
+
+
+import 'package:reddit/Classes/Community.dart';
+
+import 'Comment.dart';
 import 'Like.dart';
 import 'User.dart';
 
 class Post{
-  dynamic content;
-  DateTime createdAt=DateTime.now();
+  String title;
+  String content;
+  DateTime? createdAt;
+  Community? community;
   Object? id;
   Object? image;
   int? likeCount;
-  Like? like;
-  User author;
+  List<User> likes = [];
+  List<comment>? comments;
+  User? user;
 
-  Post({ required this.content, this.id, this.image, this.likeCount,this.like, required this.author});
+  Post({required this.title, required this.content, this.community, this.id, this.image, this.likeCount,this.comments,this.user}){
+    this.createdAt = DateTime.now();
+  }
+  void addComment(comment comment){
+    comments?.add(comment);
+  }
+  void removeComment(comment comment){
+    if(comments == null){
+      comments = [];
+    }
+    comments?.remove(comment);
+  }
+  bool containsComment(comment comment){
+    if(comments == null){
+      comments = [];
+    }
+    return comments?.contains(comment)??false;
+  }
+  void addLike(User user){
+    likes.add(user);
+  }
+  void removeLike(User user){
+    likes.remove(user);
+  }
+  bool containsLike(User user){
+    return likes.contains(user);
+  }
+  void changeContent(String content){
+    this.content = content;
+  }
+  void changeTitle(String title){
+    this.title = title;
+  }
+  void changeCommunity(Community community){
+    this.community = community;
+  }
+  void changeImage(Object image){
+    this.image = image;
+  }
+  void changeLikeCount(int likeCount){
+    this.likeCount = likeCount;
+  }
+  void changeUser(User user){
+    this.user = user;
+  }
+  void changeCreatedAt(DateTime createdAt){
+    this.createdAt = createdAt;
+  }
+
+
 }

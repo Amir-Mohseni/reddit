@@ -3,6 +3,7 @@ import 'package:reddit/Classes/Post.dart';
 import 'User.dart';
 
 class Community{
+  static List<Community> communities = [];
   String name;
   String description;
   List <User> admins;
@@ -10,10 +11,11 @@ class Community{
   List<User> users = [];
   List<Post> posts = [];
 
-  Community(this.name, this.description, this.admins, this.image) {
+  Community({required this.name, required this.description, required this.admins, this.image}) {
     admins.forEach((admin) {
       users.add(admin);
     });
+    communities.add(this);
   }
 
   void addUser(User user){
@@ -35,7 +37,7 @@ class Community{
       admins.remove(user);
     }
     for (int i = 0; i < posts.length; i++) {
-      if (posts[i].author == user) {
+      if (posts[i].user == user) {
         posts.removeAt(i);
       }
     }
@@ -72,7 +74,7 @@ class Community{
   void removePost(Post post){
     posts.remove(post);
     for (int i = 0; i < users.length; i++) {
-      if (users[i].username == post.author.username) {
+      if (users[i].username == post.user?.username) {
         users[i].removePost(post);
       }
     }

@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    String? titl;
+    String? title;
     return Scaffold(
       drawer: drawer(),
       appBar: AppBar(
@@ -55,11 +56,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         Expanded(
                             child: Row(
                           children: [
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user?.Posts?.length.toString()??'0',
                                 FontAwesomeIcons.comments),
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user?.Posts?.length.toString()??'0',
                                 FontAwesomeIcons.comments),
-                            iconAndSub(user!.Posts!.length.toString(),
+                            iconAndSub(user?.Posts?.length.toString()??'0',
                                 FontAwesomeIcons.comments),
                             //  iconAndSub(user!.communities!.length.toString(),FontAwesomeIcons.users),
                           ],
@@ -74,7 +75,41 @@ class _ProfilePageState extends State<ProfilePage> {
                 itemCount: user?.Posts?.length ?? 0,
                 itemBuilder: (context, index) {
                   print(user?.Posts?.length.toString());
-                  return postTile(user!.Posts![index]);
+                  int i = index;
+                  return Column(
+                    children: [
+                      postTile(user?.Posts?[index]??Post(
+                          title: '',
+                          image: '',
+                          user: User(
+                              username: '',
+                              password: '',
+                              Posts: [],), content: '')),
+                      Container(
+                        height: 100,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: user?.Posts?[i]?.comments?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                color: Colors.grey[200],
+                                child: ListTile(
+                                  title: Text(user?.name ?? 'nulllll',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                  subtitle: Text(
+                                    user?.Posts?[i].comments?[index]?.content ??
+                                        'nulllllllll',
+                                    style: TextStyle(color: orangeblack),
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  );
                 },
               )),
             ),
@@ -86,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget postTile(Post post) {
     return Container(
-      height: 500,
+      height: 470,
       color: Colors.black,
       child: Stack(
         alignment: Alignment.topCenter,
@@ -100,42 +135,42 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
               top: 440,
               left: 10,
-              child: Text(post?.content,
+              child: Text(post?.content ?? "nuulll",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ))),
           Positioned(
-            top: 410,
+              top: 410,
               child: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                child: Icon(
-                  FontAwesomeIcons.heart,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                child: Icon(
-                  FontAwesomeIcons.comment,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                child: Icon(
-                  FontAwesomeIcons.flushed,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ],
-          ))
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    child: Icon(
+                      FontAwesomeIcons.heart,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    child: Icon(
+                      FontAwesomeIcons.comment,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    child: Icon(
+                      FontAwesomeIcons.flushed,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              )),
         ],
       ),
     );
