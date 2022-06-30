@@ -7,7 +7,7 @@ import '../Classes/Community.dart';
 class ShowCommunityList extends StatefulWidget {
   Community community;
   Function removeCommunity;
-  ShowCommunityList(this.community, this.removeCommunity, {Key key})
+  ShowCommunityList(this.community, this.removeCommunity, {required Key key})
       : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class _ShowCommunityListState extends State<ShowCommunityList> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color.fromARGB(255, 40, 90, 82),
+      color: Colors.blue,
       shadowColor: Colors.teal,
       elevation: 8.0,
       child: ListTile(

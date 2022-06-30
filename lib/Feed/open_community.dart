@@ -11,27 +11,30 @@ import '../eg. Colors.dar.dart';
 
 class OpenCommunity extends StatefulWidget {
   OpenCommunity(
-      {required Key key, required this.user, required this.community})
+      {required Key key, required this.user, required this.community, required this.removeCommunity})
       : super(key: key);
 
   User user;
   Community community;
+  Function removeCommunity;
 
   @override
-  State<OpenCommunity> createState() => _OpenCommunityState(user: user, community: community);
+  State<OpenCommunity> createState() => _OpenCommunityState(user: user, community: community, removeCommunity: removeCommunity);
 }
 
 class _OpenCommunityState extends State<OpenCommunity> {
   User user;
   Community community;
+  Function removeCommunity;
   PageController pageController =
   PageController(initialPage: 0, viewportFraction: 1);
   int currentPage = 0;
   bool onhome = true;
-  _OpenCommunityState({required this.user, required this.community});
+  _OpenCommunityState({required this.user, required this.community, required this.removeCommunity});
 
   @override
   Widget build(BuildContext context) {
+    /*
     return Scaffold(
       drawer: drawer(),
       appBar: AppBar(
@@ -227,6 +230,42 @@ class _OpenCommunityState extends State<OpenCommunity> {
                 ],
               )),
         ],
+      ),
+    );
+  }
+
+     */
+    return Card(
+      color: Color.fromARGB(255, 40, 90, 82),
+      shadowColor: Colors.teal,
+      elevation: 8.0,
+      child: ListTile(
+        title: Text(widget.community.name,
+            style: const TextStyle(
+                fontSize: 16.0, fontWeight: FontWeight.bold)),
+        leading: CircleAvatar(
+          radius: 20.0,
+          backgroundImage: NetworkImage(widget.community.image!),
+        ),
+        trailing: SizedBox(
+          width: 52.0,
+          child: Row(
+            children: [
+              GestureDetector(
+                child: const Icon(Icons.delete),
+                onTap: () {
+                  widget.removeCommunity();
+                },
+              ),
+              GestureDetector(
+                child: const Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
