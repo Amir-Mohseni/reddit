@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,21 +10,13 @@ import '../Classes/User.dart';
 import '../Feed/FeedPage.dart';
 
 class SignUpPage extends StatefulWidget {
-  Function addUser;
-  List<User>? users;
-  Function containsUser;
-
-  SignUpPage(
-      {Key? key, required this.addUser, this.users, required this.containsUser})
-      : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState(addUser);
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
   bool passwordVisible = false;
-  Function addUser;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
   TextEditingController cpasc = TextEditingController();
@@ -31,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   RegExp regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
   bool _isLoading = false;
 
-  _SignUpPageState(this.addUser);
+  _SignUpPageState();
 
   @override
   void dispose() {
@@ -141,35 +135,39 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Colors.blueAccent,
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        setState(() {
+                        setState(() async {
                           if (namec.text.length < 8) {
-                            // print(namec.text);
-                            // print(regExp.hasMatch(pasc.text));
                             userError =
-                                "username must be at list 8 characters long";
+                                "username must be at least 8 characters long";
                             desError = "";
                           } else if (!regExp.hasMatch(pasc.text)) {
                             userError = "";
                             desError =
-                                "password must be at list 8 characters long containing one uppercase letter one lowercase letter and one number";
+                                "password must be at least 8 characters long containing one uppercase letter one lowercase letter and one number";
                           } else if (pasc.text != cpasc.text) {
                             userError = "";
                             desError = "";
                             cpassError = "password does not match";
                           } else {
+                            userError = "not connected to server";
+                            desError = "";
+                            cpassError = "";
                             User user = User(
                                 name: namec.text,
                                 password: pasc.text,
                             );
-                            addUser(
-                                User(username: namec.text, password: pasc.text));
-                            Future.delayed(Duration(milliseconds: 500), () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          FeedPage(widget.users, user)));
+                            setState(() {
+                              SignUp(namec.text, pasc.text);
                             });
+                            if(userError == "") {
+                              Future.delayed(Duration(milliseconds: 500), () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            FeedPage(user)));
+                              });
+                            }
                           }
                         });
                       },
@@ -189,7 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  LoginPage(containsUser: widget.containsUser)));
+                                  LoginPage()));
                     },
                     child: const Text(
                       "Log In",
@@ -203,6 +201,27 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void SignUp(String username, String password) async {
+    String request = "sign up\nusername:$username,,password:$password\u0000";
+    await Socket.connect('192.168.0.235', 8080).then((serverSocket) {
+      serverSocket.write(request);
+      serverSocket.flush();
+      serverSocket.listen((data) {
+        String result = String.fromCharCodes(data).trim();
+        print(result);
+        if (result.contains("success")) {
+            setState(() {
+              userError = "";
+            });
+        } else {
+          setState(() {
+            userError = "username or password is incorrect";
+          });
+        }
+      });
+    });
   }
 }
 

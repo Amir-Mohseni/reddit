@@ -9,18 +9,19 @@ import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
 class FeedPage extends StatefulWidget {
-  List<User>? users;
   User user;
-  FeedPage(this.users, this.user);
+  FeedPage(this.user);
 
   @override
   State<FeedPage> createState() =>
-      _FeedPageState(users: users ?? [], user: user);
+      _FeedPageState(user: user);
 }
 
 class _FeedPageState extends State<FeedPage> {
   User user;
-  List<User> users;
+  List<User> users = [];
+
+
   List<Post>? postsForHome = [];
   List<Post>? posts = [];
   List<Post>? postsForPopular = [];
@@ -29,7 +30,7 @@ class _FeedPageState extends State<FeedPage> {
   int currentPage = 0;
   bool onhome = true;
 
-  _FeedPageState({required this.users, required this.user});
+  _FeedPageState({required this.user});
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _FeedPageState extends State<FeedPage> {
       }
       posts?.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
       postsForHome=posts;
-      posts?.sort((a, b) => b.likes.length!.compareTo(a.likes.length??0));
+      posts?.sort((a, b) => b.likes.length.compareTo(a.likes.length));
       postsForPopular=posts;
     });
     super.initState();

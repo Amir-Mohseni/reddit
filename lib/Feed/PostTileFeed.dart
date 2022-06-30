@@ -65,8 +65,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
                         Container(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            post.createdAt.toString().substring(0, 19) ??
-                                "nnull",
+                            post.createdAt.toString().substring(0, 19),
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -101,7 +100,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
           Positioned(
               top: 550,
               left: 10,
-              child: Text(post?.content ?? "nnull",
+              child: Text(post.content,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

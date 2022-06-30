@@ -72,11 +72,11 @@ class _OpenCommunityState extends State<OpenCommunity> {
                         Expanded(
                             child: Row(
                               children: [
-                                iconAndSub(user!.Posts!.length.toString(),
+                                iconAndSub(user.Posts!.length.toString(),
                                     FontAwesomeIcons.comments),
-                                iconAndSub(user!.Posts!.length.toString(),
+                                iconAndSub(user.Posts!.length.toString(),
                                     FontAwesomeIcons.comments),
-                                iconAndSub(user!.Posts!.length.toString(),
+                                iconAndSub(user.Posts!.length.toString(),
                                     FontAwesomeIcons.comments),
                                 //  iconAndSub(user!.communities!.length.toString(),FontAwesomeIcons.users),
                               ],
@@ -100,7 +100,7 @@ class _OpenCommunityState extends State<OpenCommunity> {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: user?.Posts![i]?.comments?.length ?? 0,
+                                itemCount: user?.Posts[i]?.comments?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return Container(
                                     color: Colors.grey[200],
@@ -110,7 +110,7 @@ class _OpenCommunityState extends State<OpenCommunity> {
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold)),
                                       subtitle: Text(
-                                          user?.Posts![i]?.comments![index].content ??
+                                          user?.Posts[i]?.comments![index].content ??
                                               'nulllll',
                                         style: TextStyle(color: orangeblack),
                                       ),
@@ -190,7 +190,7 @@ class _OpenCommunityState extends State<OpenCommunity> {
           Positioned(
               top: 440,
               left: 10,
-              child: Text(post?.content ?? "nuulll",
+              child: Text(post.content,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

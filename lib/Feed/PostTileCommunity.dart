@@ -35,7 +35,7 @@ class _PosttileCommunity extends State<PosttileCommunity> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
-                    itemCount: posts?[i]?.comments?.length ?? 0,
+                    itemCount: posts?[i].comments?.length ?? 0,
                     itemBuilder: (context, index) {
                       return Container(
                         color: Colors.grey[200],
@@ -44,7 +44,7 @@ class _PosttileCommunity extends State<PosttileCommunity> {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                           subtitle: Text(
-                            posts?[i].comments?.elementAt(index).content ??
+                            posts[i].comments?.elementAt(index).content ??
                                 'nulllllllll',
                             style: TextStyle(color: orangeblack),
                           ),
@@ -92,7 +92,7 @@ class _PosttileCommunity extends State<PosttileCommunity> {
                         Container(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            post.createdAt.toString().substring(0, 19) ?? "nnull",
+                            post.createdAt.toString().substring(0, 19),
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -127,7 +127,7 @@ class _PosttileCommunity extends State<PosttileCommunity> {
           Positioned(
               top: 550,
               left: 10,
-              child: Text(post?.content ?? "nnull",
+              child: Text(post.content,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

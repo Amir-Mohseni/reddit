@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SignUpPage(addUser: addUser, users: users,containsUser: containsUser)),
+                      builder: (context) => SignUpPage()),
                 );
               },
             ),
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => FeedPage(users, mainUser)),
+                      builder: (context) => FeedPage(mainUser)),
                 );
               },
               child: Text('Feed'),
