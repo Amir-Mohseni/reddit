@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
               top: 440,
               left: 10,
-              child: Text(post.content,
+              child: Text(post?.content ?? "nuulll",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

@@ -15,6 +15,7 @@ class Post{
   Object? image;
   int? likeCount;
   List<User> likes = [];
+  List<User> dislikes = [];
   List<comment>? comments;
   User? user;
 

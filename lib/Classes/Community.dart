@@ -7,7 +7,7 @@ class Community{
   String name;
   String description;
   List <User> admins;
-  String? image;
+  Object? image;
   List<User> users = [];
   List<Post> posts = [];
 

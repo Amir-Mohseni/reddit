@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:reddit/Classes/Community.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
 import 'package:reddit/Feed/add_post.dart';
 import 'package:reddit/Feed/community_page.dart';
@@ -9,19 +10,22 @@ import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
 class FeedPage extends StatefulWidget {
+  List<User>? users;
   User user;
-  FeedPage(this.user);
+  Function addPost;
+  Function addComment;
+  Function addCommunity;
+
+  FeedPage( {required this.users, required this.user,required this.addComment,required this.addPost,required this.addCommunity});
 
   @override
   State<FeedPage> createState() =>
-      _FeedPageState(user: user);
+      _FeedPageState(users: users ?? [], user: user);
 }
 
 class _FeedPageState extends State<FeedPage> {
   User user;
-  List<User> users = [];
-
-
+  List<User> users;
   List<Post>? postsForHome = [];
   List<Post>? posts = [];
   List<Post>? postsForPopular = [];
@@ -30,7 +34,7 @@ class _FeedPageState extends State<FeedPage> {
   int currentPage = 0;
   bool onhome = true;
 
-  _FeedPageState({required this.user});
+  _FeedPageState({required this.users, required this.user});
 
   @override
   void initState() {
@@ -40,7 +44,7 @@ class _FeedPageState extends State<FeedPage> {
       }
       posts?.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
       postsForHome=posts;
-      posts?.sort((a, b) => b.likes.length.compareTo(a.likes.length));
+      posts?.sort((a, b) => b.likes.length!.compareTo(a.likes.length??0));
       postsForPopular=posts;
     });
     super.initState();
@@ -229,8 +233,8 @@ class _FeedPageState extends State<FeedPage> {
           key: const PageStorageKey<String>('FeedPage'),
           controller: pageController,
           children: [
-            PosttileFeed(posts: posts ?? []),
-            PosttileFeed(posts: postsForPopular ?? []),
+            PosttileFeed(posts: posts ?? [], user: user,addComment: widget.addComment,),
+            PosttileFeed(posts: postsForPopular ?? [], user: user,addComment: widget.addComment,),
           ],
         ),
       ),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:reddit/Classes/Comment.dart';
+import 'package:reddit/Login/LoginPage.dart';
+import 'package:reddit/SingUp/SingUp.dart';
 import 'package:reddit/splash.dart';
+
 import 'Classes/Community.dart';
+import 'Classes/Like.dart';
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
 import 'Feed/FeedPage.dart';
-import 'SignUp/SingUp.dart';
+import 'ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,11 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
   List<User>? users;
   late User mainUser;
   List<Post> posts = [];
+  List<comment> comments = [];
 
   @override
   initState() {
     super.initState();
-    posts =[
+    posts = [
       Post(
         id: '1',
         title: 'This is a title',
@@ -93,9 +99,32 @@ class _MyHomePageState extends State<MyHomePage> {
       description: "Test",
       admins: [users![0]],
     );
+    comments =[
+      comment(
+        content: "This is a comment",
+        commenter: users![0],
+        post: posts[0],
+      ),
+      comment(
+        content: "This is a comment",
+        commenter: users![0],
+        post: posts[0],
+      ),
+      comment(
+        content: "This is a comment",
+        commenter: users![0],
+        post: posts[0],
+      ),
+    ];
+
     users![0].communities.add(selectedCommunity);
     users![0].Posts = posts.cast<Post>();
     users![1].Posts = posts.cast<Post>();
+    posts[0].comments = comments;
+    posts[1].comments = comments;
+    posts[2].comments = comments;
+    mainUser = users![0];
+    print(posts[0].comments?.length.toString()??"null");
   }
 
   // users.add( User(username : "user",password: "user"));
@@ -108,14 +137,31 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-  void containsUser(User user){
-    setState((){
-      for(User u in users!) {
-        if(u.username == user.username && u.password == user.password){
+
+  void containsUser(User user) {
+    setState(() {
+      for (User u in users!) {
+        if (u.username == user.username && u.password == user.password) {
           print("zxfhjzih");
           mainUser = user;
         }
       }
+    });
+  }
+  void addComment(comment comment, Post post) {
+    setState(() {
+      post.comments?.add(comment);
+    });
+  }
+  void addPost(Post post, User user) {
+    setState(() {
+      posts.add(post);
+      user.Posts.add(post);
+    });
+  }
+  void addCommunity(Community community, User user) {
+    setState(() {
+      user.communities.add(community);
     });
   }
   @override
@@ -136,7 +182,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SignUpPage()),
+                      builder: (context) => SignUpPage(
+                          addUser: addUser,
+                          users: users,
+                          containsUser: containsUser, addComment: addComment,addPost: addPost,addComunity: addCommunity,)),
                 );
               },
             ),
@@ -147,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => FeedPage(mainUser)),
+                      builder: (context) => FeedPage(users : users,   user : mainUser, addCommunity: addCommunity, addPost: addPost , addComment: addComment)),
                 );
               },
               child: Text('Feed'),
