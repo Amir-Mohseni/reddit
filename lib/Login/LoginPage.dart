@@ -6,7 +6,6 @@ import 'package:reddit/eg.%20Colors.dar.dart';
 import 'package:reddit/main.dart';
 
 import '../Classes/User.dart';
-import '../SingUp/SingUp.dart';
 
 class LoginPage extends StatefulWidget {
   Function containsUser;
