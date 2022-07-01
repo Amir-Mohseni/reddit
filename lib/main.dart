@@ -84,12 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
       User(
         username: 'useruser1',
         password: 'passPASS1',
-        Posts: posts,
       ),
       User(
         username: 'user2',
         password: 'pass2',
-        Posts: posts,
       ),
     ];
     Community selectedCommunity = new Community(

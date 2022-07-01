@@ -27,7 +27,7 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   User user;
   List<User> users;
-  List<Post>? postsForHome = [];
+  List<Post>? postsForHome;
   List<Post>? posts = [];
   List<Post>? postsForPopular = [];
   PageController pageController =
@@ -42,9 +42,11 @@ class _FeedPageState extends State<FeedPage> {
     setState(() {
       for(User user in users) {
         posts?.addAll(user.Posts);
+        print(user.Posts.length.toString()+user.Posts[0].comments.toString()+"from feed page init");
       }
       posts?.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
-      postsForHome=posts;
+      postsForHome?.addAll(posts??[]);
+      print(posts![0].comments??"djhdujh"+"from feed page init");
       posts?.sort((a, b) => b.likes.length!.compareTo(a.likes.length??0));
       postsForPopular=posts;
     });

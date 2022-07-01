@@ -42,6 +42,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
   }
 
   Widget postTile(Post post) {
+    print(post.comments?.length.toString()??"null"+"from posttile");
     return Container(
       height: 600,
       color: Colors.black,
@@ -123,7 +124,26 @@ class _PosttileFeedState extends State<PosttileFeed> {
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    margin : EdgeInsets.symmetric(horizontal: 20),
+                    child: IconButton(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      onPressed: (){
+                        setState((){
+                           if(widget.user.savedPosts.contains(post)??false)
+                            widget.user.savedPosts.remove(post);
+                           else
+                            widget.user.savedPosts.add(post);
+                        });
+                      }, icon: Icon(
+                        FontAwesomeIcons.save,
+                        color: widget.user.savedPosts.contains(post)??false?
+                              Colors.red :Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
                     child: IconButton(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       onPressed: () {
@@ -148,7 +168,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
                     child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -183,7 +203,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
                                   )));
                     },
                     child: Text(
-                      "Comment",
+                      "Details",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

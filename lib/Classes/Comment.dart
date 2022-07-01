@@ -7,16 +7,17 @@ class comment {
   User? commenter;
   DateTime? createdAt;
   List<comment>? replies;
-  List<Like>? likes;
+  List<User> likes= [];
+  List<User> dislikes= [];
   Post post;
-  comment({required this.content, required this.commenter, this.createdAt, this.replies, this.likes, required this.post});
+  comment({required this.content, required this.commenter, this.createdAt, this.replies, required this.post});
   void addReply(comment reply){
     replies?.add(reply);
   }
-  void addLike(Like like){
+  void addLike(User like){
     likes?.add(like);
   }
-  void removeLike(Like like){
+  void removeLike(like){
     if(likes == null){
       likes = [];
     }

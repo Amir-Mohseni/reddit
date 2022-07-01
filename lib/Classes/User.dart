@@ -14,12 +14,12 @@ class User {
   File? profileImage;
   String? bio;
   List<Post> Posts = [];
-  List<Post>? savedPosts;
+  List<Post> savedPosts= [];
   List<Community> communities = [];
   bool darkMode = false;
 
   User({ this.username,  this.password, this.email, this.name,  this.id,
-    this.profileImage, this.bio, List<Post>? Posts});
+    this.profileImage, this.bio});
 
   void addPost(Post post){
     if(!Posts.contains(post)) {

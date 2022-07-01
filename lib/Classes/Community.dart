@@ -11,6 +11,7 @@ class Community{
   List<User> users = [];
   List<Post> posts = [];
 
+
   Community({required this.name, required this.description, required this.admins, this.image}) {
     admins.forEach((admin) {
       users.add(admin);

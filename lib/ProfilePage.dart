@@ -1,8 +1,10 @@
 
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/Feed/Changeprofile.dart';
 
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
@@ -35,88 +37,93 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Container(
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.topCenter,
-              height: 110,
-              child: Card(
-                  shadowColor: Colors.white,
-                  elevation: 10,
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          child: Image.asset(
-                            user?.profileImage?.path??'assets/images/iconBlue.jpg',
-                            width: 100,
-                            height: 100,
-                            //  fit:BoxFit.fill
+            FadeInUp(
+              duration: Duration(milliseconds: 1000),
+              child: Container(
+                alignment: Alignment.topCenter,
+                height: 110,
+                child: Card(
+                    shadowColor: Colors.white,
+                    elevation: 10,
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.topLeft,
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: Image.asset(
+                              user?.profileImage?.path??'assets/images/iconBlue.jpg',
+                              width: 100,
+                              height: 100,
+                              //  fit:BoxFit.fill
+                            ),
                           ),
-                        ),
-                        Expanded(
-                            child: Row(
-                          children: [
-                            iconAndSub(user?.communities.length.toString()??'0',
-                                FontAwesomeIcons.groupArrowsRotate),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(20, 20, 0, 10),
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                user?.bio??'this is bio',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        )),
-                      ],
-                    ),
-                  )),
+                          Expanded(
+                              child: Row(
+                            children: [
+                              iconAndSub(user?.communities.length.toString()??'0',
+                                  FontAwesomeIcons.groupArrowsRotate),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(20, 20, 0, 10),
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  user?.bio??'this is bio',
+                                  style: TextStyle(
+                                      fontSize: 30, fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
+                        ],
+                      ),
+                    )),
+              ),
             ),
             Expanded(
-              child: Container(
-                  child: ListView.builder(
-                itemCount: user?.Posts?.length ?? 0,
-                itemBuilder: (context, index) {
-                  print(user?.Posts?.length.toString());
-                  int i = index;
-                  return Column(
-                    children: [
-                      postTile(user?.Posts?[index]??Post(
-                          title: '',
-                          image: File('assets/images/iconPurple.jpg'),
-                          user: User(
-                              username: '',
-                              password: '',
-                              Posts: [],), content: '')),
-                      Container(
-                        height: 100,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemCount: user?.Posts?[i]?.comments?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                color: Colors.grey[200],
-                                child: ListTile(
-                                  title: Text(user?.name ?? 'nulllll',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold)),
-                                  subtitle: Text(
-                                    user?.Posts?[i].comments?[index]?.content ??
-                                        'nulllllllll',
-                                    style: TextStyle(color: orangeblack),
+              child: FadeInDown(
+                child: Container(
+                    child: ListView.builder(
+                  itemCount: user?.Posts?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    print(user?.Posts?.length.toString());
+                    int i = index;
+                    return Column(
+                      children: [
+                        postTile(user?.Posts?[index]??Post(
+                            title: '',
+                            image: File('assets/images/iconPurple.jpg'),
+                            user: User(
+                                username: '',
+                                password: '',
+                                ), content: '')),
+                        Container(
+                          height: 100,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: user?.Posts?[i]?.comments?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  color: Colors.grey[200],
+                                  child: ListTile(
+                                    title: Text(user?.username ?? 'nulllll',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold)),
+                                    subtitle: Text(
+                                      user?.Posts?[i].comments?[index]?.content ??
+                                          'nulllllllll',
+                                      style: TextStyle(color: orangeblack),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
-                      )
-                    ],
-                  );
-                },
-              )),
+                                );
+                              }),
+                        )
+                      ],
+                    );
+                  },
+                )),
+              ),
             ),
           ],
         ),
@@ -202,9 +209,9 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             ),
             ListTile(
-              title: Text('Profile', style: TextStyle(color: orangepurple)),
+              title: Text('Change Profile', style: TextStyle(color: orangepurple)),
               onTap: () {
-                Navigator.pop(context);
+               Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeProfile(user: widget.user)));
               },
             ),
             ListTile(
