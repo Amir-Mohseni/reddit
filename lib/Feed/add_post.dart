@@ -76,7 +76,7 @@ class _AddPostState extends State<AddPost> {
           SizedBox(
             height: 20,
           ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () async {
               final pickedFile =
                   await _picker.getImage(source: ImageSource.gallery);
@@ -91,7 +91,7 @@ class _AddPostState extends State<AddPost> {
           SizedBox(
             height: 20,
           ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               if (titleC.text.isNotEmpty && descC.text.isNotEmpty) {
                 print("dtjkxzhjzhjzzhhj");
@@ -112,12 +112,6 @@ class _AddPostState extends State<AddPost> {
           ),
           SizedBox(
             height: 20,
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Cancel"),
           ),
         ]),
       ),

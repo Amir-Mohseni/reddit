@@ -8,6 +8,7 @@ import 'package:reddit/ProfilePage.dart';
 
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
+import '../CommunityFiles/CommunityScreen.dart';
 
 class FeedPage extends StatefulWidget {
   List<User>? users;
@@ -117,7 +118,7 @@ class _FeedPageState extends State<FeedPage> {
             tabs: [
               Tab(
                 icon: Icon(
-                  FontAwesomeIcons.home,
+                  FontAwesomeIcons.house,
                   color: Colors.white,
                 ),
               ),
@@ -170,7 +171,7 @@ class _FeedPageState extends State<FeedPage> {
                 context,
                 MaterialPageRoute(builder: (_) {
                   return AddPost(
-                    key: Key("add post"),
+                    key: Key("Add Post"),
                     user: user,
                     addPost: widget.addPost,
                   );
@@ -180,8 +181,8 @@ class _FeedPageState extends State<FeedPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) {
-                  return CommunityPage(
-                    key: Key("add post"),
+                  return CommunityScreen(
+                    key: Key("Community Screen"),
                     user: user,
                   );
                 }),

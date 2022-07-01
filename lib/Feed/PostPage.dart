@@ -63,17 +63,21 @@ class _PostPageState extends State<PostPage> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   onPressed: () {
                     setState(() {
-                      if (widget.post.likes.contains(widget.user))
+                      if (widget.post.likes.contains(widget.user)) {
                         widget.post.likes.remove(widget.user);
-                      else
+                      }
+                      else {
                         widget.post.likes.add(widget.user);
+                        if(widget.post.dislikes.contains(widget.user))
+                          widget.post.dislikes.remove(widget.user);
+                      }
                       print(widget.post.likes.length);
                     });
                   },
                   icon: Icon(
-                    FontAwesomeIcons.heart,
+                    FontAwesomeIcons.thumbsUp,
                     color: widget.post.likes.contains(widget.user)
-                        ? Colors.red
+                        ? Colors.yellowAccent
                         : Colors.white,
                     size: 30,
                   ),
@@ -86,14 +90,17 @@ class _PostPageState extends State<PostPage> {
                     setState(() {
                       if (widget.post.dislikes.contains(widget.user))
                         widget.post.dislikes.remove(widget.user);
-                      else
+                      else {
                         widget.post.dislikes.add(widget.user);
+                        if(widget.post.likes.contains(widget.user))
+                          widget.post.likes.remove(widget.user);
+                      }
                     });
                   },
                   icon: Icon(
                     FontAwesomeIcons.thumbsDown,
                     color: widget.post.dislikes.contains(widget.user)
-                        ? Colors.yellowAccent
+                        ? Colors.redAccent
                         : Colors.white,
                     size: 30,
                   ),

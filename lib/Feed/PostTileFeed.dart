@@ -130,15 +130,18 @@ class _PosttileFeedState extends State<PosttileFeed> {
                         setState(() {
                           if (post.likes.contains(widget.user))
                             post.likes.remove(widget.user);
-                          else
+                          else {
                             post.likes.add(widget.user);
+                            if(post.dislikes.contains(widget.user))
+                              post.dislikes.remove(widget.user);
+                          }
                           print(post.likes.length);
                         });
                       },
                       icon: Icon(
-                        FontAwesomeIcons.heart,
+                        FontAwesomeIcons.thumbsUp,
                         color: post.likes.contains(widget.user)
-                            ? Colors.red
+                            ? Colors.yellowAccent
                             : Colors.white,
                         size: 30,
                       ),
@@ -151,14 +154,17 @@ class _PosttileFeedState extends State<PosttileFeed> {
                         setState(() {
                           if (post.dislikes.contains(widget.user))
                             post.dislikes.remove(widget.user);
-                          else
+                          else {
                             post.dislikes.add(widget.user);
+                            if(post.likes.contains(widget.user))
+                              post.likes.remove(widget.user);
+                          }
                         });
                       },
                       icon: Icon(
                         FontAwesomeIcons.thumbsDown,
                         color: post.dislikes.contains(widget.user)
-                            ? Colors.yellowAccent
+                            ? Colors.redAccent
                             : Colors.white,
                         size: 30,
                       ),
