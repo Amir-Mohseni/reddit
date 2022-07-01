@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reddit/Classes/Community.dart';
+import 'package:reddit/Feed/PostPage.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
 import 'package:reddit/Feed/add_post.dart';
 import 'package:reddit/Feed/community_page.dart';
@@ -34,14 +35,17 @@ class _FeedPageState extends State<FeedPage> {
       PageController(initialPage: 0, viewportFraction: 1);
   int currentPage = 0;
   bool onhome = true;
-
+  TextEditingController searchController = TextEditingController();
   _FeedPageState({required this.users, required this.user});
 
   @override
   void initState() {
     setState(() {
       for(User user in users) {
-        posts.addAll(user.Posts);
+        for(Post post in user.Posts) {
+          if(!posts.contains(post))
+          posts.add(post);
+        }
         print(posts.length.toString()+"posts length");
         print(user.Posts.length.toString()+user.Posts[0].comments.toString()+"from feed page init");
       }
@@ -110,7 +114,6 @@ class _FeedPageState extends State<FeedPage> {
         appBar: AppBar(
           bottom: TabBar(
             onTap: (int index) {
-              print(postsForPopular.toString());
               setState(() {
                 if (pageController.hasClients)
                   pageController.animateToPage(index,
@@ -137,16 +140,27 @@ class _FeedPageState extends State<FeedPage> {
           title: Container(
               child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
+            children: <Widget>[
               Expanded(
                 flex: 1,
                 child: TextField(
+                  controller: searchController,
                   decoration: InputDecoration(
                     hintText: 'Search',
                     hintStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black,
+                    prefixIcon: IconButton(
+                       icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                      color: Colors.black, onPressed: () {
+                         for(Post post in posts) {
+                           if(post.content.toLowerCase().contains(searchController.text.toLowerCase())) {
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage(user: user, post: post, addComment: widget.addComment)));
+                             break;
+                           }
+                          }
+                    },
                     ),
                   ),
                 ),

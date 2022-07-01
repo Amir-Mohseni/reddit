@@ -227,7 +227,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void SignUp(String username, String password) async {
     String request = "sign up\nusername:$username,,password:$password\u0000";
-    await Socket.connect('192.168.0.235', 8080).then((serverSocket) {
+    await Socket.connect('192.168.1.3', 8080).then((serverSocket) {
 //      await Socket.connect('10.0.2.2', 8080).then((serverSocket) {
       serverSocket.write(request);
       serverSocket.flush();

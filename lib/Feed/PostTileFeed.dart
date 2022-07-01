@@ -32,12 +32,23 @@ class _PosttileFeedState extends State<PosttileFeed> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: (BuildContext context, int index) {
-            int i = index;
-            return postTile(posts[index]);
-          }),
+      child: RefreshIndicator (
+        onRefresh: () {
+          return Future.delayed(Duration(microseconds: 500),
+              () {
+                setState(() {
+                  posts=widget.posts;
+                });
+              }
+          );
+        },
+        child: ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (BuildContext context, int index) {
+              int i = index;
+              return postTile(posts[index]);
+            }),
+      ),
     );
   }
 

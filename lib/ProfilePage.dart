@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/Feed/AboutUs.dart';
 import 'package:reddit/Feed/Changeprofile.dart';
 import 'package:reddit/SavePostsPage.dart';
 import 'Classes/Post.dart';
@@ -212,6 +213,12 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Logout', style: TextStyle(color: orangepurple)),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('About', style: TextStyle(color: orangepurple)),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
               },
             ),
           ],
