@@ -7,7 +7,7 @@ class Community{
   String name;
   String description;
   List <User> admins;
-  String? image;
+  String? image = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F4%2F46%2FQuestion_mark_%2528black%2529.svg%2F640px-Question_mark_%2528black%2529.svg.png&imgrefurl=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fquestion_mark&tbnid=oszZ02U-Zkt5aM&vet=12ahUKEwiPhvOg09f4AhUS1IUKHRBDDB4QMygBegUIARDhAQ..i&docid=knXL1q1XHbToQM&w=640&h=640&q=question%20mark&ved=2ahUKEwiPhvOg09f4AhUS1IUKHRBDDB4QMygBegUIARDhAQ";
   List<User> users = [];
   List<Post> posts = [];
 

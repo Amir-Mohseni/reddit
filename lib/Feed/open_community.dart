@@ -259,7 +259,18 @@ class _OpenCommunityState extends State<OpenCommunity> {
               GestureDetector(
                 child: const Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-
+                  //OpenCommunity
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OpenCommunity(
+                        user: widget.user,
+                        key: Key("OpenCommunity"),
+                        removeCommunity: widget.removeCommunity,
+                        community: widget.community,
+                      ),
+                    ),
+                  );
                 },
               ),
             ],

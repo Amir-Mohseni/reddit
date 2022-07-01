@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit/Feed/open_community.dart';
+import 'package:reddit/main.dart';
 import '../Classes/Community.dart';
 import '../Classes/User.dart';
+import '../CommunityFiles/CommunityPage.dart';
 
 class CommunityItem extends StatefulWidget {
   CommunityItem({required Key key, required this.community, required this.user}) : super(key: key);
@@ -20,22 +22,23 @@ class _CommunityItemState extends State<CommunityItem> {
 
   _CommunityItemState({required this.community, required this.user});
 
-  List<Community> communities = [Community(name: 'r/Valorant', description: 'Cringe', admins: [], image: 'https://tr.rbxcdn.com/4f24f514964225c249b4dc004ebcbe64/420/420/Image/Png', ),
+/*  List<Community> communities = [Community(name: 'r/Valorant', description: 'Cringe', admins: [], image: 'https://tr.rbxcdn.com/4f24f514964225c249b4dc004ebcbe64/420/420/Image/Png', ),
     Community(name: 'r/EA Sport', description: 'Cringe', admins: [], image: 'https://media.contentapi.ea.com/content/dam/eacom/en-us/common/october-ea-ring.png'),
     Community(name: 'r/Star wars', description: 'Cringe', admins: [], image: 'https://images.bonanzastatic.com/afu/images/0282/4b02/773d_5392595648/s-l1600.jpg'),
     Community(name: 'r/Champions league', description: 'Cringe', admins: [], image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_FpknB8aQlF_bR6SZZcCWDXUCGGaWK2bzzQ&usqp=CAU'),
     Community(name: 'r/Real Madrid', description: 'Cringe', admins: [], image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStMY_bWW9MbAFxNtG6RbQBLpnUZkyxviFmOA&usqp=CAU')
   ];
+ */
 
   void addCommunity(Community community) {
     setState(() {
-      communities.add(community);
+      user.communities.add(community);
     });
   }
 
   void removeCommunity(int index) {
     setState(() {
-      communities.removeAt(index);
+      user.communities.removeAt(index);
     });
   }
 
@@ -52,11 +55,12 @@ class _CommunityItemState extends State<CommunityItem> {
             GestureDetector(
               child: Icon(Icons.arrow_forward_ios),
               onTap: () {
+                print('Tapped');
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return OpenCommunity(
+                      return CommunityPage(
                         community: widget.community,
                         removeCommunity: removeCommunity,
                         user: widget.user,

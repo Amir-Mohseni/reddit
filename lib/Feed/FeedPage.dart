@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:reddit/Classes/Community.dart';
 import 'package:reddit/Feed/PostTileFeed.dart';
 import 'package:reddit/Feed/add_post.dart';
-import 'package:reddit/Feed/community_page.dart';
 import 'package:reddit/ProfilePage.dart';
 
 import '../Classes/Post.dart';

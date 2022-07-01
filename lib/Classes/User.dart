@@ -6,8 +6,8 @@ import 'package:reddit/Classes/Community.dart';
 import 'Post.dart';
 
 class User {
-  String? password;
   String? username;
+  String? password;
   String? email;
   String? name;
   String? id;
@@ -96,6 +96,4 @@ class User {
   String? getBio() {
     return bio;
   }
-
-
 }

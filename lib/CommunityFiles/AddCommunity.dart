@@ -1,35 +1,43 @@
 
 import 'package:flutter/material.dart';
+import 'package:reddit/Classes/Community.dart';
+import '../Classes/User.dart';
 import '../main.dart';
 
 class AddCommunity extends StatefulWidget {
   Function addCommunity;
-  AddCommunity({required Key key, required this.addCommunity}) : super(key: key);
+  User user;
+  AddCommunity({required Key key, required this.addCommunity, required this.user}) : super(key: key);
 
   @override
-  State<AddCommunity> createState() => _AddCommunityState();
+  State<AddCommunity> createState() => _AddCommunityState(user: this.user);
 }
 
 class _AddCommunityState extends State<AddCommunity> {
   late TextEditingController communityNameController;
+  late TextEditingController communityDescriptionController;
+  User user;
+  _AddCommunityState({required this.user});
   String communityNameError = "";
+  String communityDescriptionError = "";
   late SnackBar alarm;
   late GlobalKey<ScaffoldState> scaffoldKey;
   @override
   void initState() {
     communityNameController = TextEditingController();
+    communityDescriptionController = TextEditingController();
     scaffoldKey = GlobalKey<ScaffoldState>();
     super.initState();
   }
   @override
   void dispose() {
     communityNameController.dispose();
+    communityDescriptionController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       key: scaffoldKey,
       body: Column(
         children: [
@@ -61,6 +69,27 @@ class _AddCommunityState extends State<AddCommunity> {
           ),
           Container(
               alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.8,
+              margin: EdgeInsets.only(top: 15.0),
+              child: TextField(
+                controller: communityDescriptionController,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.description, color: Color(Colors.blue.value),),
+                  errorText: communityDescriptionError,
+                  hintText: 'Enter a description',
+                  hintMaxLines: 5,
+                  hintStyle: TextStyle(fontFamily: 'Montserrat', fontSize: 19.0),
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.black, width: 1.5)),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.black, width: 1.5)),
+                  contentPadding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                ),
+              )
+          ),
+          Container(
+              alignment: Alignment.center,
               margin: EdgeInsets.only(top: 25.0, left: 0.0),
               child: MaterialButton(
                 elevation: 16.0,
@@ -69,14 +98,19 @@ class _AddCommunityState extends State<AddCommunity> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 onPressed: () {
                   String communityName = communityNameController.text;
+                  String communityDescription = communityDescriptionController.text;
                   FocusScope.of(context).requestFocus(FocusNode());
                   setState(() {
                     if(communityName.isEmpty) {
                       communityNameError = 'Please enter a non-empty name';
+                    } else if(communityDescription.isEmpty) {
+                      communityDescriptionError = 'Please enter a non-empty description';
                     } else {
                       communityNameError = "";
-                      alarm = SnackBar(content: Text('$communityName Created!'));
-                      scaffoldKey.currentState?.showSnackBar(alarm);
+                      communityDescriptionError = "";
+                      Community community = new Community(name: communityName, description: communityDescription, admins: [user]);
+                      user.addCommunity(community);
+                      Navigator.pop(context);
                     }
                   });
                 },
