@@ -9,7 +9,6 @@ class User {
   String? username;
   String? password;
   String? email;
-  String? name;
   String? id;
   File? profileImage;
   String? bio;
@@ -18,7 +17,7 @@ class User {
   List<Community> communities = [];
   bool darkMode = false;
 
-  User({ this.username,  this.password, this.email, this.name,  this.id,
+  User({ this.username,  this.password, this.email,  this.id,
     this.profileImage, this.bio, List<Post>? Posts});
 
   void addPost(Post post){
@@ -84,9 +83,7 @@ class User {
   String? getEmail() {
     return email;
   }
-  String? getName() {
-    return name;
-  }
+
   String? getId() {
     return id;
   }

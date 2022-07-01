@@ -107,7 +107,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                   return Container(
                                     color: Colors.grey[200],
                                     child: ListTile(
-                                      title: Text(user.name ?? 'nulllll',
+                                      title: Text(user.username ?? 'nulllll',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold)),

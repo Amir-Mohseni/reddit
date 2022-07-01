@@ -141,7 +141,7 @@ class _PostPageState extends State<PostPage> {
                                                 print(widget
                                                     .post.comments?.last.content);
                                                 print(widget.post.comments?.last
-                                                    .commenter?.name);
+                                                    .commenter?.username);
                                                 print(
                                                     widget.post.comments?.length);
                                                 Navigator.of(context).pop();
@@ -198,7 +198,7 @@ String format1(d) {
 }
 Widget CommentCard({required comment comment, required User user}) {
   return ListTile(
-    title: Text(comment.commenter?.name ?? "null"),
+    title: Text(comment.commenter?.username ?? "null"),
     subtitle: Text(comment.content ?? "null"),
   );
 }

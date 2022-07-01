@@ -41,7 +41,7 @@ class _PostPageState extends State<PostPage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
-          widget.post.user?.name ??
+          widget.post.user?.username ??
               'Post' + "\n" + format1(widget.post.createdAt?.toJalali()),
         ),
       ),
@@ -142,7 +142,7 @@ class _PostPageState extends State<PostPage> {
                                           widget.post);
                                       print(widget.post.comments?.last.content);
                                       print(widget
-                                          .post.comments?.last.commenter?.name);
+                                          .post.comments?.last.commenter?.username);
                                       print(widget.post.comments?.length);
                                       Navigator.of(context).pop();
                                     },
@@ -178,7 +178,7 @@ class _PostPageState extends State<PostPage> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    widget.post.comments?[index].commenter?.name ?? "null",
+                    widget.post.comments?[index].commenter?.username ?? "null",
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

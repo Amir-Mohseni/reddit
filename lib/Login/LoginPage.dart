@@ -145,14 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                             desError = "";
                             Login(namec.text, pasc.text);
                             if(success == true) {
-                              User user = new User(username: namec.text, password: pasc.text);
-                              Future.delayed(Duration(milliseconds: 500), () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FeedPage(users: widget.users,user: user,addPost: widget.addPost, addCommunity: widget.addComunity, addComment: widget.addComment,)));
-                              });
                             }
                           else
                             print("error");
@@ -185,6 +177,12 @@ class _LoginPageState extends State<LoginPage> {
         print(result);
         if (result.contains("success")) {
           setState(() {
+            User user = new User(username: namec.text, password: pasc.text);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        FeedPage(users: widget.users,user: user,addPost: widget.addPost, addCommunity: widget.addComunity, addComment: widget.addComment,)));
             userError = "";
             success = true;
           });

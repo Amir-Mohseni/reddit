@@ -18,7 +18,13 @@ class SignUpPage extends StatefulWidget {
   Function addComunity;
 
   SignUpPage(
-      {Key? key, required this.addUser, this.users, required this.containsUser,required this.addPost,required this.addComment,required this.addComunity})
+      {Key? key,
+      required this.addUser,
+      this.users,
+      required this.containsUser,
+      required this.addPost,
+      required this.addComment,
+      required this.addComunity})
       : super(key: key);
 
   @override
@@ -71,7 +77,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: namec,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                          icon: Icon(Icons.person, color: Colors.blue,),
+                          icon: Icon(
+                            Icons.person,
+                            color: Colors.blue,
+                          ),
                           errorText: userError,
                           hintText: "Username",
                           contentPadding:
@@ -162,21 +171,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             userError = "";
                             desError = "";
                             cpassError = "";
-                            User user = User(
-                                name: namec.text,
-                                password: pasc.text,
-                            );
                             SignUp(namec.text, pasc.text);
-                            if(success == true) {
-                              Future.delayed(Duration(milliseconds: 500), () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FeedPage(users: widget.users,user: user,addPost: widget.addPost, addCommunity: widget.addComunity, addComment: widget.addComment,) ));
-                              });
-                            }
-                            else
+                            if (success == true) {
+
+                            } else
                               print("error");
                           }
                         });
@@ -196,8 +194,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  LoginPage(users: widget.users,containsUser: widget.containsUser,addPost: widget.addPost,addComment: widget.addComment,addComunity: widget.addComunity,)));
+                              builder: (context) => LoginPage(
+                                    users: widget.users,
+                                    containsUser: widget.containsUser,
+                                    addPost: widget.addPost,
+                                    addComment: widget.addComment,
+                                    addComunity: widget.addComunity,
+                                  )));
                     },
                     child: const Text(
                       "Log In",
@@ -223,9 +226,23 @@ class _SignUpPageState extends State<SignUpPage> {
         String result = String.fromCharCodes(data).trim();
         print(result);
         if (result.contains("success")) {
-            setState(() {
-              success = true;
-            });
+          setState(() {
+            User user = User(
+              username: namec.text,
+              password: pasc.text,
+            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FeedPage(
+                      users: widget.users,
+                      user: user,
+                      addPost: widget.addPost,
+                      addCommunity: widget.addComunity,
+                      addComment: widget.addComment,
+                    )));
+            success = true;
+          });
         } else {
           setState(() {
             userError = "username or password is incorrect";
@@ -235,4 +252,3 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 }
-

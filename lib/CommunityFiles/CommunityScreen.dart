@@ -18,10 +18,9 @@ class CommunityScreen extends StatefulWidget {
 
 class _CommunityScreenState extends State<CommunityScreen> {
   User user;
-  User temp_user = new User(username: "amirmohseni87", password: "123456");
+//  User temp_user = new User(username: "amirmohseni87", password: "123456");
 
   _CommunityScreenState({required this.user}) {
-    user = temp_user;
     user.addCommunity(new Community(name: 'r/Valorant', description: 'Cringe', admins: [user], image: 'https://tr.rbxcdn.com/4f24f514964225c249b4dc004ebcbe64/420/420/Image/Png'));
     user.addCommunity(new Community(name: 'r/EA Sport', description: 'Cringe', admins: [user], image: 'https://media.contentapi.ea.com/content/dam/eacom/en-us/common/october-ea-ring.png'));
     user.addCommunity(new Community(name: 'r/Star wars', description: 'Cringe', admins: [user], image: 'https://images.bonanzastatic.com/afu/images/0282/4b02/773d_5392595648/s-l1600.jpg'));

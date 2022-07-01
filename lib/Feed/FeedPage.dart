@@ -15,7 +15,10 @@ class FeedPage extends StatefulWidget {
   Function addComment;
   Function addCommunity;
 
-  FeedPage( {required this.users, required this.user,required this.addComment,required this.addPost,required this.addCommunity});
+  FeedPage( {required this.users, required this.user,required this.addComment,required this.addPost,required this.addCommunity}) {
+    print(user.username);
+    print(user.password);
+  }
 
   @override
   State<FeedPage> createState() =>
