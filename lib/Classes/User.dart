@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:reddit/Classes/Community.dart';
 
 import 'Post.dart';
@@ -9,7 +11,7 @@ class User {
   String? email;
   String? name;
   String? id;
-  Object? profileImage;
+  File? profileImage;
   String? bio;
   List<Post> Posts = [];
   List<Post>? savedPosts;

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\blinklenovo400\\Desktop\\reddit\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "D:\\reddit3\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\blinklenovo400\\Desktop\\reddit\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\reddit3\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:reddit/Classes/Community.dart';
 
 import 'Comment.dart';
@@ -12,9 +14,10 @@ class Post{
   DateTime? createdAt;
   Community? community;
   Object? id;
-  Object? image;
+  File? image;
   int? likeCount;
   List<User> likes = [];
+  List<User> dislikes = [];
   List<comment>? comments;
   User? user;
 
@@ -54,7 +57,7 @@ class Post{
   void changeCommunity(Community community){
     this.community = community;
   }
-  void changeImage(Object image){
+  void changeImage(File image){
     this.image = image;
   }
   void changeLikeCount(int likeCount){

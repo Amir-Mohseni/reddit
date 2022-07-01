@@ -10,6 +10,16 @@ import '../Classes/User.dart';
 import '../Feed/FeedPage.dart';
 
 class SignUpPage extends StatefulWidget {
+  Function addUser;
+  List<User>? users;
+  Function containsUser;
+  Function addPost;
+  Function addComment;
+  Function addComunity;
+
+  SignUpPage(
+      {Key? key, required this.addUser, this.users, required this.containsUser,required this.addPost,required this.addComment,required this.addComunity})
+      : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -163,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            FeedPage(user)));
+                                            FeedPage(users: widget.users,user: user,addPost: widget.addPost, addCommunity: widget.addComunity, addComment: widget.addComment,) ));
                               });
                             }
                             else
@@ -187,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  LoginPage()));
+                                  LoginPage(users: widget.users,containsUser: widget.containsUser,addPost: widget.addPost,addComment: widget.addComment,addComunity: widget.addComunity,)));
                     },
                     child: const Text(
                       "Log In",

@@ -8,15 +8,20 @@ import '../Classes/User.dart';
 import '../Feed/FeedPage.dart';
 
 class LoginPage extends StatefulWidget {
-
-  LoginPage({Key? key}) : super(key: key);
+  Function containsUser;
+  Function addPost;
+  Function addComment;
+  Function addComunity;
+  List<User>? users;
+  LoginPage({Key? key, required this.containsUser,required this.addPost,required this.addComment,required this.addComunity,required this.users}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState(this.containsUser);
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool passwordVisible = false;
+  Function containsUser;
   TextEditingController namec = TextEditingController();
   TextEditingController pasc = TextEditingController();
   DateTime daytime = DateTime.now();
@@ -24,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   bool success = false;
   RegExp regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
 
-  _LoginPageState();
+  _LoginPageState(this.containsUser);
 
   @override
   void dispose() {
@@ -146,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            FeedPage(user)));
+                                            FeedPage(users: widget.users,user: user,addPost: widget.addPost, addCommunity: widget.addComunity, addComment: widget.addComment,)));
                               });
                             }
                           else

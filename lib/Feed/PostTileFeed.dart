@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:reddit/Classes/Comment.dart';
+import 'package:reddit/Feed/PostPage.dart';
 
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
@@ -8,8 +10,12 @@ import '../eg. Colors.dar.dart';
 
 class PosttileFeed extends StatefulWidget {
   List<Post> posts;
+  User user;
+  Function addComment;
 
-  PosttileFeed({Key? key, required this.posts}) : super(key: key);
+
+  PosttileFeed({Key? key, required this.posts, required this.user,required this.addComment,})
+      : super(key: key);
 
   @override
   State<PosttileFeed> createState() => _PosttileFeedState(posts);
@@ -40,59 +46,61 @@ class _PosttileFeedState extends State<PosttileFeed> {
         alignment: Alignment.topCenter,
         clipBehavior: Clip.none,
         children: [
-          Expanded(
-            child: Container(
-              height: 100,
-              width: 420,
-              child: Card(
-                shadowColor: Colors.white,
-                child: Row(
-                  children: [
-                    Column(
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 100,
+                  width: 420,
+                  child: Card(
+                    shadowColor: Colors.white,
+                    child: Row(
                       children: [
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              post.user?.username ?? "nnull",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                        Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                post.user?.username ?? "nnull",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
+                            Container(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                post.createdAt.toString().substring(0, 19) ??
+                                    "nnull",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            post.createdAt.toString().substring(0, 19),
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Container(
+                            //alignment: Alignment.topLeft,
+                            margin: EdgeInsets.only(left: 15),
+                            child: Image.asset(
+                              post.user?.profileImage?.path ?? "assets/images/iconBlue.jpg",
+                              width: 100,
+                              height: 100,
+                              //  fit:BoxFit.fill
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.topLeft,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Image.asset(
-                          'assets/images/iconBlue.jpg',
-                          width: 100,
-                          height: 100,
-                          //  fit:BoxFit.fill
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           Positioned(
             top: 100,
             child: Image.asset(
-              'assets/images/iconPurple.jpg',
+              post.image?.path ?? "assets/images/iconBlue.jpg",
               height: 400,
               width: 400,
             ),
@@ -100,7 +108,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
           Positioned(
               top: 550,
               left: 10,
-              child: Text(post.content,
+              child: Text(post?.content ?? "nnull",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -112,30 +120,66 @@ class _PosttileFeedState extends State<PosttileFeed> {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: Icon(
-                      FontAwesomeIcons.heart,
-                      color: Colors.white,
-                      size: 30,
+                    child: IconButton(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      onPressed: () {
+                        setState(() {
+                          if (post.likes.contains(widget.user))
+                            post.likes.remove(widget.user);
+                          else
+                            post.likes.add(widget.user);
+                          print(post.likes.length);
+                        });
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.heart,
+                        color: post.likes.contains(widget.user)
+                            ? Colors.red
+                            : Colors.white,
+                        size: 30,
+                      ),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: Icon(
-                      FontAwesomeIcons.comment,
-                      color: Colors.white,
-                      size: 30,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (post.dislikes.contains(widget.user))
+                            post.dislikes.remove(widget.user);
+                          else
+                            post.dislikes.add(widget.user);
+                        });
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.thumbsDown,
+                        color: post.dislikes.contains(widget.user)
+                            ? Colors.yellowAccent
+                            : Colors.white,
+                        size: 30,
+                      ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: Icon(
-                      FontAwesomeIcons.flushed,
-                      color: Colors.white,
-                      size: 30,
+                  TextButton(
+                    onPressed: () {
+                      print(post.comments?.length??"nnull00000");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PostPage(post: post, user: widget.user, addComment: widget.addComment,)));
+                    },
+                    child: Text(
+                      "Comment",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
                 ],
-              )),
+              )
+          ),
         ],
       ),
     );

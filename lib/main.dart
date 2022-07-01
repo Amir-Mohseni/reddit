@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/splash.dart';
 import 'Classes/Community.dart';
 import 'Classes/Post.dart';
@@ -46,33 +49,34 @@ class _MyHomePageState extends State<MyHomePage> {
   List<User>? users;
   late User mainUser;
   List<Post> posts = [];
+  List<comment> comments = [];
 
   @override
   initState() {
     super.initState();
-    posts =[
+    posts = [
       Post(
         id: '1',
         title: 'This is a title',
-        image: "https://i.redd.it/qn7f921xlqz21.jpg",
+        image: File("assets/images/iconPurple.jpg"),
         content: 'This is a content',
       ),
       Post(
         id: '2',
         title: 'This is a title',
-        image: "D:\reddit1\assets\images\icon1.jpg",
+        image: File("assets/images/iconPurple.jpg"),
         content: 'This is a content',
       ),
       Post(
         id: '3',
         title: 'This is a title',
-        image: "D:\reddit1\assets\images\icon1.jpg",
+        image: File("assets/images/iconPurple.jpg"),
         content: 'This is a content',
       ),
       Post(
         id: '4',
         title: 'This is a title',
-        image: 'D:\reddit1\assets\images\icon1.jpg',
+        image: File('assets/images/iconPurple.jpg'),
         content: 'This is a content',
       ),
     ];
@@ -93,11 +97,39 @@ class _MyHomePageState extends State<MyHomePage> {
       description: "Test",
       admins: [users![0]],
     );
-    users![0].communities.add(selectedCommunity);
-    users![0].Posts = posts.cast<Post>();
-    users![1].Posts = posts.cast<Post>();
-  }
+    comments =[
+      comment(
+        content: "This is a comment11",
+        commenter: users![0],
+        post: posts[0],
+      ),
+      comment(
+        content: "This is a comment22",
+        commenter: users![0],
+        post: posts[0],
+      ),
+      comment(
+        content: "This is a comment33",
+        commenter: users![0],
+        post: posts[0],
+      ),
+      comment(
+        content: "This is a comment44",
+        commenter: users![0],
+        post: posts[0],
+      ),
+    ];
 
+    users![0].communities.add(selectedCommunity);
+    posts[0].comments = comments;
+    posts[1].comments = comments;
+    posts[2].comments = comments;
+    users![0].Posts.addAll(posts);
+    users![1].Posts.addAll(posts);
+    mainUser = users![0];
+    print(users?[0].Posts[0].comments?.length);
+    print(posts[0].comments?.length.toString()??"null");
+  }
   // users.add( User(username : "user",password: "user"));
   void addUser(User user) {
     setState(() {
@@ -108,16 +140,38 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-  void containsUser(User user){
-    setState((){
-      for(User u in users!) {
-        if(u.username == user.username && u.password == user.password){
+
+  void containsUser(User user) {
+    setState(() {
+      for (User u in users!) {
+        if (u.username == user.username && u.password == user.password) {
           print("zxfhjzih");
           mainUser = user;
         }
       }
     });
   }
+
+  void addComment(comment comment, Post post) {
+    setState(() {
+      post.comments?.add(comment);
+    });
+  }
+
+  void addPost(Post post, User user) {
+    setState(() {
+      posts.add(post);
+      user.Posts.add(post);
+    });
+  }
+
+  void addCommunity(Community community, User user) {
+    setState(() {
+      user.communities.add(community);
+    });
+  }
+
+  // users.add( User(username : "user",password: "user"));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +190,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SignUpPage()),
+                      builder: (context) => SignUpPage(
+                            addUser: addUser,
+                            users: users,
+                            containsUser: containsUser,
+                            addComment: addComment,
+                            addPost: addPost,
+                            addComunity: addCommunity,
+                          )),
                 );
               },
             ),
@@ -147,7 +208,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => FeedPage(mainUser)),
+                      builder: (context) => FeedPage(
+                          users: users,
+                          user: mainUser,
+                          addCommunity: addCommunity,
+                          addPost: addPost,
+                          addComment: addComment)),
                 );
               },
               child: Text('Feed'),

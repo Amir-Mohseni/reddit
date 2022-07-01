@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:item_selector/item_selector.dart';
+
 import '../Classes/Community.dart';
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
 
-
 class AddPost extends StatefulWidget {
   User user;
-  AddPost({required Key key, required this.user}) : super(key: key);
+  Function addPost;
+
+  AddPost({required Key key, required this.user, required this.addPost})
+      : super(key: key);
 
   @override
   State<AddPost> createState() => _AddPostState(user: user);
@@ -20,6 +26,8 @@ class _AddPostState extends State<AddPost> {
   late TextEditingController titleC;
   late TextEditingController descC;
   late DateTime dateC;
+  final ImagePicker _picker = ImagePicker();
+  File? image;
 
   _AddPostState({required this.user});
 
@@ -42,56 +50,72 @@ class _AddPostState extends State<AddPost> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Post"),
+        automaticallyImplyLeading: true,
+        backgroundColor: Colors.black,
       ),
       body: Container(
         padding: const EdgeInsets.all(50),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(hintText: "Add a title"),
-              controller: titleC,
-              keyboardType: TextInputType.text,
+        child: Column(children: [
+          TextField(
+            controller: titleC,
+            decoration: InputDecoration(
+              labelText: "Title",
+              border: OutlineInputBorder(),
             ),
-            TextField(
-              decoration: const InputDecoration(hintText: "Add body text"),
-              controller: descC,
-              maxLines: 5,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            controller: descC,
+            decoration: InputDecoration(
+              labelText: "Description",
+              border: OutlineInputBorder(),
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
-              width: 80,
-              height: 40,
-              child: ElevatedButton(
-                  onPressed: () {
-                    String title = titleC.text;
-                    String desc = descC.text;
-                    ItemSelectionController(
-                      child: ListView.builder(
-                        itemCount: user?.communities?.length ?? 0,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            title: Text(user?.communities?.elementAt(index)?.name ?? 'nulllll'),
-                            onTap: () {
-                              setState(() {
-                                community = user?.communities?.elementAt(index);
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    );
-                    Post post = Post(title: title, content: desc, user: user, community: community, image: null, likeCount: 0, comments: null);
-                    widget.user.addPost(post);
-                    community?.addPost(post);
-                    titleC.clear();
-                    descC.clear();
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Add", )),
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          RaisedButton(
+            onPressed: () async {
+              final pickedFile =
+                  await _picker.getImage(source: ImageSource.gallery);
+              if (pickedFile != null) {
+                setState(() {
+                  image = File(pickedFile.path);
+                });
+              }
+            },
+            child: Text("Select Image"),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          RaisedButton(
+            onPressed: () {
+              if (titleC.text.isNotEmpty && descC.text.isNotEmpty) {
+                widget.addPost(Post(
+                  title: titleC.text,
+                  content: descC.text,
+                  community: community,
+                  user: user,
+                  image: image,
+                ));
+                Navigator.pop(context);
+              }
+            },
+            child: Text("Add Post"),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Cancel"),
+          ),
+        ]),
       ),
     );
   }

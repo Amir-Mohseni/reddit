@@ -1,10 +1,11 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
-import 'assets/colors/ColorSleect.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'eg. Colors.dar.dart';
@@ -80,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       postTile(user?.Posts?[index]??Post(
                           title: '',
-                          image: '',
+                          image: File('assets/images/iconPurple.jpg'),
                           user: User(
                               username: '',
                               password: '',
