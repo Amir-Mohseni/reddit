@@ -27,9 +27,9 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   User user;
   List<User> users;
-  List<Post>? postsForHome;
-  List<Post>? posts = [];
-  List<Post>? postsForPopular = [];
+  List<Post> postsForHome=[];
+  List<Post> posts = [];
+  List<Post> postsForPopular = [];
   PageController pageController =
       PageController(initialPage: 0, viewportFraction: 1);
   int currentPage = 0;
@@ -41,14 +41,15 @@ class _FeedPageState extends State<FeedPage> {
   void initState() {
     setState(() {
       for(User user in users) {
-        posts?.addAll(user.Posts);
+        posts.addAll(user.Posts);
+        print(posts.length.toString()+"posts length");
         print(user.Posts.length.toString()+user.Posts[0].comments.toString()+"from feed page init");
       }
-      posts?.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
-      postsForHome?.addAll(posts??[]);
-      print(posts![0].comments??"djhdujh"+"from feed page init");
-      posts?.sort((a, b) => b.likes.length!.compareTo(a.likes.length??0));
-      postsForPopular=posts;
+      postsForHome.addAll(posts);
+      postsForHome.sort((a, b) => b.createdAt!.compareTo(a.createdAt??DateTime.now()));
+      print(postsForHome[0].comments??"djhdujh"+"from feed page init");
+      postsForPopular.addAll(posts);
+      postsForPopular.sort((a, b) => b.likes.length.compareTo(a.likes.length??0));
     });
     super.initState();
   }
@@ -237,7 +238,7 @@ class _FeedPageState extends State<FeedPage> {
           key: const PageStorageKey<String>('FeedPage'),
           controller: pageController,
           children: [
-            PosttileFeed(posts: posts ?? [], user: user,addComment: widget.addComment,),
+            PosttileFeed(posts: postsForHome ?? [], user: user,addComment: widget.addComment,),
             PosttileFeed(posts: postsForPopular ?? [], user: user,addComment: widget.addComment,),
           ],
         ),

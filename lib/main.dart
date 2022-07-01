@@ -158,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addPost(Post post, User user) {
     setState(() {
-      posts.add(post);
       user.Posts.add(post);
     });
   }

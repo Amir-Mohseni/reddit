@@ -5,7 +5,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit/Feed/Changeprofile.dart';
-
+import 'package:reddit/SavePostsPage.dart';
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -192,20 +192,14 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: blackorange,
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              curve: Curves.easeIn,
-              child: Text(
-                'Profile',
-                style: TextStyle(color: orangepurple),
-              ),
-              decoration: BoxDecoration(
-                color: purpleorange,
-              ),
+            ListTile(
+              trailing: Image.asset(user?.profileImage?.path??'assets/images/iconBlue.jpg'),
+              title: Text(user?.username ?? 'nulllll'),
             ),
             ListTile(
-              title: Text('Home', style: TextStyle(color: orangepurple)),
+              title: Text('Saved Posts', style: TextStyle(color: orangepurple)),
               onTap: () {
-                Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SavedPostsPage(posts: user?.savedPosts??[],user : user??User(username: '',password: ''))));
               },
             ),
             ListTile(
