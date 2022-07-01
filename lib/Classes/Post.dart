@@ -18,10 +18,10 @@ class Post{
   int? likeCount;
   List<User> likes = [];
   List<User> dislikes = [];
-  List<comment>? comments;
+  List<comment> comments=[];
   User? user;
 
-  Post({required this.title, required this.content, this.community, this.id, this.image, this.likeCount,this.comments,this.user}){
+  Post({required this.title, required this.content, this.community, this.id, this.image, this.likeCount,this.user}){
     this.createdAt = DateTime.now();
   }
   void addComment(comment comment){

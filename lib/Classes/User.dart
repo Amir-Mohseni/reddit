@@ -13,12 +13,12 @@ class User {
   File? profileImage;
   String? bio;
   List<Post> Posts = [];
-  List<Post>? savedPosts;
+  List<Post> savedPosts= [];
   List<Community> communities = [];
   bool darkMode = false;
 
-  User({ this.username,  this.password, this.email,  this.id,
-    this.profileImage, this.bio, List<Post>? Posts});
+  User({ this.username,  this.password, this.email, this.id,
+    this.profileImage, this.bio});
 
   void addPost(Post post){
     if(!Posts.contains(post)) {
@@ -93,4 +93,6 @@ class User {
   String? getBio() {
     return bio;
   }
+
+
 }
