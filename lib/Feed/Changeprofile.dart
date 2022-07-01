@@ -89,15 +89,15 @@ class _ChangeProfileState extends State<ChangeProfile> {
                        TextField(
                           controller: _nameC,
                           decoration: InputDecoration(
-                            labelText: 'ReName',
+                            labelText: 'Change Username',
                             border: OutlineInputBorder(),
                           ),
                         ),
                        RaisedButton(onPressed: () {
                          setState(() {
-                           widget.user.name = _nameC.text;
+                           widget.user.username = _nameC.text;
                          });
-                       }, child: Text('ReName')),
+                       }, child: Text('Change Username')),
                      ],
                    ),
                  ),
@@ -110,7 +110,7 @@ class _ChangeProfileState extends State<ChangeProfile> {
                         TextField(
                           controller: _emailC,
                           decoration: InputDecoration(
-                            labelText: 'ReEmail',
+                            labelText: 'Change Email',
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -118,7 +118,7 @@ class _ChangeProfileState extends State<ChangeProfile> {
                           setState(() {
                             widget.user.email = _emailC.text;
                           });
-                        }, child: Text('ReEmail')),
+                        }, child: Text('Change Email')),
                       ],
                     ),
                   ),
@@ -131,14 +131,14 @@ class _ChangeProfileState extends State<ChangeProfile> {
                         TextField(
                           controller: _passwordC,
                           decoration: InputDecoration(
-                            labelText: 'RePassword',
+                            labelText: 'Change Password',
                             border: OutlineInputBorder(),
                           ),
                         ),
                         TextField(
                           controller: _confirmPasswordC,
                           decoration: InputDecoration(
-                            labelText: 'Confirm RePassword',
+                            labelText: 'Confirm Password',
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -148,7 +148,7 @@ class _ChangeProfileState extends State<ChangeProfile> {
                               widget.user.password = _passwordC.text;
                             }
                           });
-                        }, child: Text('RePassword')),
+                        }, child: Text('Change Password')),
                       ],
                     ),
                   ),

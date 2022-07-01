@@ -1,13 +1,16 @@
 
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/Feed/FeedPage.dart';
 
 import 'Classes/Post.dart';
 import 'Classes/User.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'Feed/Changeprofile.dart';
 import 'eg. Colors.dar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -65,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 margin: EdgeInsets.fromLTRB(20, 20, 0, 10),
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  user?.bio??'this is bio',
+                                  user?.bio??'This is bio',
                                   style: TextStyle(
                                       fontSize: 30, fontWeight: FontWeight.bold),
                                 ),
@@ -203,7 +206,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               title: Text('Home', style: TextStyle(color: orangepurple)),
               onTap: () {
-                Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
               },
             ),
             ListTile(

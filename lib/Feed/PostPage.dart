@@ -189,7 +189,7 @@ class _PostPageState extends State<PostPage> {
                                         print(
                                             widget.post.comments?.last.content);
                                         print(widget.post.comments?.last
-                                            .commenter?.name);
+                                            .commenter?.username);
                                         print(widget.post.comments?.length);
                                         Navigator.of(context).pop();
                                       },
