@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           alignment: Alignment.topLeft,
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: Image.asset(
-                            'assets/images/iconBlue.jpg',
+                            user?.profileImage?.path??'assets/images/iconBlue.jpg',
                             width: 100,
                             height: 100,
                             //  fit:BoxFit.fill
@@ -57,13 +57,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         Expanded(
                             child: Row(
                           children: [
-                            iconAndSub(user?.Posts?.length.toString()??'0',
-                                FontAwesomeIcons.comments),
-                            iconAndSub(user?.Posts?.length.toString()??'0',
-                                FontAwesomeIcons.comments),
-                            iconAndSub(user?.Posts?.length.toString()??'0',
-                                FontAwesomeIcons.comments),
-                            //  iconAndSub(user!.communities!.length.toString(),FontAwesomeIcons.users),
+                            iconAndSub(user?.communities.length.toString()??'0',
+                                FontAwesomeIcons.groupArrowsRotate),
+                            Container(
+                              margin: EdgeInsets.fromLTRB(20, 20, 0, 10),
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                user?.bio??'this is bio',
+                                style: TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                            )
                           ],
                         )),
                       ],
@@ -129,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
         clipBehavior: Clip.none,
         children: [
           Image.asset(
-            'assets/images/iconPurple.jpg',
+           post.image?.path ?? 'assets/images/iconPurple.jpg',
             height: 400,
             width: 400,
           ),

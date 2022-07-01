@@ -4,12 +4,18 @@ import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/Classes/Post.dart';
 import 'package:reddit/Classes/User.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class PostPage extends StatefulWidget {
   Post post;
   User user;
   Function addComment;
-  PostPage({Key? key, required this.user, required this.post,required this.addComment})
+
+  PostPage(
+      {Key? key,
+      required this.user,
+      required this.post,
+      required this.addComment})
       : super(key: key);
 
   @override
@@ -34,8 +40,10 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(widget.post.user?.name ??
-            'Post' + "\n" + widget.post.createdAt.toString().substring(0, 19)),
+        title: Text(
+          widget.post.user?.name ??
+              'Post' + "\n" + format1(widget.post.createdAt?.toJalali()),
+        ),
       ),
       body: Column(
         children: [
@@ -120,11 +128,14 @@ class _PostPageState extends State<PostPage> {
                                         style: TextStyle(color: Colors.green)),
                                     onPressed: () {
                                       widget.addComment(
-                                        comment(content: _commentController.text, commenter: widget.user, post: widget.post),
-                                        widget.post
-                                      );
+                                          comment(
+                                              content: _commentController.text,
+                                              commenter: widget.user,
+                                              post: widget.post),
+                                          widget.post);
                                       print(widget.post.comments?.last.content);
-                                      print(widget.post.comments?.last.commenter?.name);
+                                      print(widget
+                                          .post.comments?.last.commenter?.name);
                                       print(widget.post.comments?.length);
                                       Navigator.of(context).pop();
                                     },
@@ -180,5 +191,11 @@ class _PostPageState extends State<PostPage> {
         ],
       ),
     );
+  }
+
+  String format1(d) {
+    final f = d.formatter;
+
+    return '${f.wN} ${f.d} ${f.mN} ${f.yy}';
   }
 }

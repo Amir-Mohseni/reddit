@@ -94,13 +94,17 @@ class _AddPostState extends State<AddPost> {
           RaisedButton(
             onPressed: () {
               if (titleC.text.isNotEmpty && descC.text.isNotEmpty) {
-                widget.addPost(Post(
+                print("dtjkxzhjzhjzzhhj");
+                widget.addPost(
+                  Post(
                   title: titleC.text,
                   content: descC.text,
                   community: community,
                   user: user,
                   image: image,
-                ));
+                ),
+                  user,
+                );
                 Navigator.pop(context);
               }
             },

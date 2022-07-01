@@ -4,7 +4,6 @@ import 'package:reddit/Feed/PostTileCommunity.dart';
 import '../Classes/Community.dart';
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
-import '../assets/colors/ColorSleect.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../eg. Colors.dar.dart';

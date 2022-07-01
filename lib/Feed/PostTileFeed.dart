@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/Feed/PostPage.dart';
-
+import 'package:shamsi_date/shamsi_date.dart';
 import '../Classes/Post.dart';
 import '../Classes/User.dart';
 import '../eg. Colors.dar.dart';
@@ -13,9 +13,12 @@ class PosttileFeed extends StatefulWidget {
   User user;
   Function addComment;
 
-
-  PosttileFeed({Key? key, required this.posts, required this.user,required this.addComment,})
-      : super(key: key);
+  PosttileFeed({
+    Key? key,
+    required this.posts,
+    required this.user,
+    required this.addComment,
+  }) : super(key: key);
 
   @override
   State<PosttileFeed> createState() => _PosttileFeedState(posts);
@@ -70,7 +73,7 @@ class _PosttileFeedState extends State<PosttileFeed> {
                             Container(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                post.createdAt.toString().substring(0, 19) ??
+                                format1(post.createdAt?.toJalali())??
                                     "nnull",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
@@ -83,7 +86,8 @@ class _PosttileFeedState extends State<PosttileFeed> {
                             //alignment: Alignment.topLeft,
                             margin: EdgeInsets.only(left: 15),
                             child: Image.asset(
-                              post.user?.profileImage?.path ?? "assets/images/iconBlue.jpg",
+                              post.user?.profileImage?.path ??
+                                  "assets/images/iconBlue.jpg",
                               width: 100,
                               height: 100,
                               //  fit:BoxFit.fill
@@ -162,12 +166,15 @@ class _PosttileFeedState extends State<PosttileFeed> {
                   ),
                   TextButton(
                     onPressed: () {
-                      print(post.comments?.length??"nnull00000");
+                      print(post.comments?.length ?? "nnull00000");
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PostPage(post: post, user: widget.user, addComment: widget.addComment,)));
+                              builder: (context) => PostPage(
+                                    post: post,
+                                    user: widget.user,
+                                    addComment: widget.addComment,
+                                  )));
                     },
                     child: Text(
                       "Comment",
@@ -178,10 +185,14 @@ class _PosttileFeedState extends State<PosttileFeed> {
                     ),
                   ),
                 ],
-              )
-          ),
+              )),
         ],
       ),
     );
+  }
+  String format1(d) {
+    final f = d.formatter;
+
+    return '${f.wN} ${f.d} ${f.mN} ${f.yy}';
   }
 }

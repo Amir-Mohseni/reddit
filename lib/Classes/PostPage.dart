@@ -4,6 +4,7 @@ import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/Classes/Comment.dart';
 import 'package:reddit/Classes/Post.dart';
 import 'package:reddit/Classes/User.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class PostPage extends StatefulWidget {
   Post post;
@@ -38,10 +39,6 @@ class _PostPageState extends State<PostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text(widget.post.user?.name ??
-            'Post' + "\n" + widget.post.createdAt.toString().substring(0, 19)),
-      ),
       body: Container(
         child: Column(
           children: [
@@ -194,7 +191,11 @@ class _PostPageState extends State<PostPage> {
     );
   }
 }
+String format1(d) {
+  final f = d.formatter;
 
+  return '${f.wN} ${f.d} ${f.mN} ${f.yy}';
+}
 Widget CommentCard({required comment comment, required User user}) {
   return ListTile(
     title: Text(comment.commenter?.name ?? "null"),

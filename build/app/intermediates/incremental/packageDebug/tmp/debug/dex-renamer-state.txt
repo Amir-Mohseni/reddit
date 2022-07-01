@@ -1,4 +1,0 @@
-#Fri Jul 01 05:22:57 IRDT 2022
-base.0=D\:\\reddit3\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

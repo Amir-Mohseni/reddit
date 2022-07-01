@@ -124,8 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
     posts[0].comments = comments;
     posts[1].comments = comments;
     posts[2].comments = comments;
-    users![0].Posts.addAll(posts);
-    users![1].Posts.addAll(posts);
+    users![0].Posts=posts;
+    users![1].Posts=posts;
     mainUser = users![0];
     print(users?[0].Posts[0].comments?.length);
     print(posts[0].comments?.length.toString()??"null");
